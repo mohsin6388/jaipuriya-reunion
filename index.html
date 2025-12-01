@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jaipuria’s 25-Year Reunion</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* -------------------------
+       Base / Theme / Variables
+       ------------------------- */
+    :root{
+      --bg: #050505;
+      --text: #ffffff;
+      --muted: #9ca3af;
+      --panel-bg: rgba(255,255,255,0.05);
+      --glass-border: rgba(255,255,255,0.1);
+      --accent-cyan: #00f3ff;
+      --accent-purple: #7c3aed;
+      --accent-pink: #f472b6;
+      --accent-blue: #3b82f6;
+      --party-dark: #0a0a12;
+      --card-radius: 24px;
+      --max-width: 1200px;
+      --container-pad: 16px;
+      --nav-height: 64px;
+      --shadow-accent: 0 0 20px rgba(0,243,255,0.2);
+      --glass-blur: blur(10px);
+      font-synthesis: none;
+    }
+
+    html,body{
+        scroll-behavior: smooth;
+      height:100%;
+      margin:0;
+      padding:0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* --------------------------
+      Background Gradient
+     ------------------------- */
+
+     /* ---------- reliable gradient background (drop-in) ---------- */
+.gradient-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;                /* sits at root-level (above page background) */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* debug helper: uncomment to see the bounding box */
+/* .gradient-bg { outline: 2px dashed rgba(255,255,255,0.08); } */
+
+.g-ball {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.95;
+  animation: float 10s infinite ease-in-out;
+  will-change: transform, opacity;
+  mix-blend-mode: screen;    /* makes the glows vivid on dark backgrounds */
+}
+
+/* stronger centers + smoother falloff */
+.g-1 {
+  width: 620px;
+  height: 620px;
+  top: -160px;
+  left: -160px;
+  background: radial-gradient(circle at 30% 30%,
+                              /* rgba(124,58,237,0.98) 0%,
+                              rgba(124,58,237,0.55) 30%, */
+                              rgba(124,58,237,0.14) 60%,
+                              transparent 85%);
+  animation-delay: 0s;
+}
+
+.g-2 {
+  width: 520px;
+  height: 520px;
+  bottom: 6%;
+  right: -120px;
+  background: radial-gradient(circle at 60% 40%,
+                              rgba(0,243,255,0.98) 0%,
+                              rgba(0,243,255,0.55) 30%,
+                              rgba(0,243,255,0.10) 60%,
+                              transparent 88%);
+  animation-delay: 2s;
+}
+
+.g-3 {
+  width: 360px;
+  height: 360px;
+  top: 38%;
+  left: 26%;
+  background: radial-gradient(circle at 40% 50%,
+                              rgba(244,114,182,0.98) 0%,
+                              rgba(244,114,182,0.52) 30%,
+                              rgba(244,114,182,0.10) 60%,
+                              transparent 88%);
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%    { transform: translate(30px,50px) scale(1.03); }
+}
+
+/* ensure page content appears above the gradient */
+body > *:not(.gradient-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+/* keep nav clearly on top */
+nav.site-nav { z-index: 9999; }
+
+
+
+
+
+
+    /* -------------------------
+       Shared utilities (semantic)
+       ------------------------- */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+      box-sizing: border-box;
+    }
+
+    .center { text-align:center; }
+
+    .glass-panel {
+      background: var(--panel-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+    }
+
+    .text-glow {
+      text-shadow: 0 0 10px rgba(124,58,237,0.5),
+                   0 0 20px rgba(124,58,237,0.3),
+                   0 0 30px rgba(124,58,237,0.1);
+    }
+
+    /* -------------------------
+       Navigation
+       ------------------------- */
+    nav.site-nav {
+      position: fixed;
+      inset: 0 auto auto 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      height: var(--nav-height);
+      display:flex;
+      align-items:center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding: 8px 0;
+      box-sizing:border-box;
+      border-bottom: 0;
+    }
+
+    .nav-inner {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      width:100%;
+      max-width: var(--max-width);
+      margin:0 auto;
+      padding:0 var(--container-pad);
+      gap: 12px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--text);
+    }
+
+    .brand .logo {
+      width:34px; height:34px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .logo img{
+        height: 100%;
+        width: 100%;
+    }
+
+    .brand .title {
+      font-family: 'Righteous', cursive;
+      font-size:20px;
+      letter-spacing:0.6px;
+    }
+
+    /* Nav links */
+    .nav-links {
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration:none;
+      padding:6px 10px;
+      border-radius:8px;
+      font-weight:600;
+    }
+
+    .nav-links a.active {
+      background: transparent;
+      color: var(--accent-cyan);
+    }
+
+    /* CTA and mobile menu button */
+    .nav-cta {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .btn-primary {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background: var(--accent-cyan);
+      color: #000;
+      font-weight:700;
+      padding:8px 16px;
+      border-radius:999px;
+      text-decoration:none;
+      box-shadow: 0 0 15px rgba(0,243,255,0.5);
+      border:none;
+      cursor:pointer;
+    }
+
+    .ticket-primary{
+        display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background: var(--accent-cyan);
+      color: #000;
+      font-weight:700;
+      padding:8px 16px;
+      border-radius:999px;
+      text-decoration:none;
+      box-shadow: 0 0 15px rgba(0,243,255,0.5);
+      border:none;
+      cursor:pointer;
+    }
+
+
+    .menu-btn {
+      width:40px; height:40px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:transparent;
+      border-radius:8px;
+      border:none;
+      color: #cbd5e1;
+      cursor:pointer;
+    }
+
+    /* -------------------------
+       Mobile menu overlay
+       ------------------------- */
+    #mobile-menu {
+      position:fixed;
+      inset:0;
+      z-index:40;
+      background: rgba(0,0,0,0.95);
+      display:none;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      transition: transform .25s ease;
+    }
+
+    #mobile-menu.open { display:flex; }
+
+    #mobile-menu .close {
+      position:absolute;
+      top:18px; right:18px;
+      background:transparent;
+      border:none;
+      color:#fff;
+      cursor:pointer;
+      font-size:18px;
+    }
+
+    #mobile-menu a {
+      color:#fff;
+      font-family:'Righteous', cursive;
+      font-size:28px;
+      text-decoration:none;
+    }
+
+    /* -------------------------
+       Hero Section
+       ------------------------- */
+    .hero {
+      min-height: calc(100vh - var(--nav-height));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 100px 16px 60px;
+      box-sizing:border-box;
+      position:relative;
+      text-align:center;
+    }
+
+    .hero .label {
+      display:inline-block;
+      padding:6px 14px;
+      border-radius:999px;
+      border: 1px solid rgba(0,243,255,0.2);
+      color: var(--accent-cyan);
+      background: rgba(0,243,255,0.04);
+      font-size:12px;
+      letter-spacing: 2px;
+      text-transform:uppercase;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: .7; transform: scale(.98); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .hero h1 {
+      margin:18px 0 10px;
+      font-family:'Righteous',cursive;
+      font-weight:800;
+      line-height:0.9;
+      font-size:56px;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p.lead {
+      color: #cbd5e1;
+      max-width:720px;
+      margin: 0 auto 18px;
+      font-size:18px;
+    }
+
+    .hero .actions {
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+
+    .btn-secondary {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 18px;
+      color: #fff;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.08);
+      background:transparent;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    /* -------------------------
+       Details Grid
+       ------------------------- */
+    .section {
+      padding: 60px 16px;
+    }
+
+    .section .title {
+      font-family:'Righteous', cursive;
+      font-size:36px;
+      margin-bottom:28px;
+      text-align:center;
+    }
+
+    .cards {
+      display:grid;
+      gap:20px;
+      grid-template-columns:1fr;
+      max-width:1100px;
+      margin: 0 auto;
+    }
+
+    .card {
+      padding:28px;
+      border-radius:20px;
+      text-align:center;
+      transition: transform .25s ease;
+      border-top:4px solid rgba(255,255,255,0.03);
+    }
+
+    .card:hover { transform: translateY(-8px); }
+
+    .card .icon-wrap {
+      width:64px; height:64px;
+      border-radius:50%;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:14px;
+      opacity: .95;
+    }
+
+    .card .h3 { font-size:18px; font-weight:700; margin-bottom:8px; }
+
+    .muted { color: #cbd5e1; }
+    .sub-muted { color: #9ca3af; font-size:13px; margin-top:8px; }
+
+    /* -------------------------
+       Registration form
+       ------------------------- */
+    .register-wrap {
+      max-width:720px;
+      margin: 0 auto;
+      padding: 36px;
+      box-sizing:border-box;
+      position:relative;
+      border-radius: 28px;
+      overflow:hidden;
+    }
+
+    .register-wrap .panel-deco {
+      position:absolute;
+      top:-30px; right:-30px;
+      width:220px; height:220px;
+      border-radius:50%;
+      background: rgba(0,243,255,0.06);
+      filter: blur(30px);
+      z-index:-1;
+    }
+
+    form#contactForm { display:flex; flex-direction:column; gap:14px; }
+
+    label.field-label {
+      display:block;
+      margin-bottom:6px;
+      font-size:16px;
+      color:#cbd5e1;
+      font-weight:600;
+    }
+
+    .input-wrap { position:relative; }
+
+    .input-icon {
+      position:absolute;
+      left:10px;
+      top:50%;
+      transform: translateY(-50%);
+      pointer-events:none;
+      opacity:0.7;
+    }
+
+    input.form-input, textarea.form-input {
+      width:100%;
+      padding:12px 14px 12px 42px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.12);
+      color:var(--text);
+      border-radius:10px;
+      box-sizing:border-box;
+      font-size:14px;
+      transition: box-shadow .2s ease, border-color .2s ease;
+    }
+
+    input.form-input:focus, textarea.form-input:focus {
+      outline:none;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 15px rgba(0,243,255,0.12);
+    }
+
+    /* Checkbox group visual */
+    .checkbox-list { display:flex; flex-direction:column; align-items: start; gap:10px; }
+    .checkbox-row { display:flex; align-items:center; gap:10px; }
+
+    /* Round custom checkbox (your original CSS reused) */
+    .round-check {
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      position:relative;
+    }
+    .round-check input {
+      opacity:0; width:0; height:0; position:absolute;
+    }
+    .circle {
+      width:16px; height:16px;
+      border-radius:50%;
+      border:2px solid #999;
+      display:inline-block;
+      box-sizing:border-box;
+      position:relative;
+      transition: 0.2s;
+      background: transparent;
+    }
+    .circle::after {
+      content:"";
+      width:10px; height:10px;
+      border-radius:50%;
+      background:#4caf50;
+      position:absolute;
+      top:50%; left:50%;
+      transform: translate(-50%,-50%) scale(0);
+      transition: 0.18s;
+    }
+    .round-check input:checked + .circle {
+      border-color: #4caf50;
+    }
+    .round-check input:checked + .circle::after {
+      transform: translate(-50%,-50%) scale(1);
+    }
+
+    /* Submit button */
+    .btn-submit {
+      width:100%;
+      padding:12px 18px;
+      border-radius:12px;
+      border:none;
+      font-weight:800;
+      font-size:16px;
+      cursor:pointer;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      color:#000;
+      box-shadow: 0 10px 30px rgba(0,243,255,0.12);
+    }
+    .btn-submit:disabled{ opacity: .6; cursor:default; }
+
+    /* -------------------------
+       Footer & Toast
+       ------------------------- */
+    footer.site-footer {
+      padding:28px 16px;
+      text-align:center;
+      background: transparent;
+      border-top:1px solid rgba(255,255,255,0.03);
+      color: #9ca3af;
+    }
+
+    .social-links a { margin:0 8px; color: #9ca3af; text-decoration:none; }
+
+    /* Toast */
+    #toast {
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:60;
+      transform: translateY(120px);
+      transition: transform .25s ease;
+    }
+    #toast.show { transform: translateY(0); }
+
+    .toast-inner {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px 14px;
+      border-radius:10px;
+      background: rgba(31,41,55,0.95);
+      border:1px solid rgba(34,197,94,0.14);
+      color:#d1fae5;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      max-width:320px;
+    }
+
+    /* -------------------------
+       Gradient background balls
+       ------------------------- */
+    /* .gradient-bg {
+      position: fixed;
+      top: 0;
+      left:0;
+      width:100vw;
+      height:100vh;
+      z-index:-1;
+      overflow:hidden;
+    }
+    .g-ball { position:absolute; border-radius:50%; filter: blur(80px); opacity:.6; animation: float 10s infinite ease-in-out; }
+    .g-1 { width:400px; height:400px; background: var(--accent-purple); top:-100px; left:-100px; animation-delay:0s; }
+    .g-2 { width:300px; height:300px; background: var(--accent-cyan); bottom:20%; right:-50px; animation-delay:2s; }
+    .g-3 { width:200px; height:200px; background: var(--accent-pink); top:40%; left:30%; animation-delay:4s; }
+    @keyframes float { 0%,100%{ transform: translate(0,0) } 50%{ transform: translate(30px,50px) } } */
+
+    /* -------------------------
+       Responsive
+       ------------------------- */
+    @media(min-width:768px){
+      .nav-links { display:flex; }
+      .menu-btn { display:none; }
+      .cards { grid-template-columns: repeat(3,1fr); }
+      .hero h1 { font-size:84px; }
+      .hero p.lead { font-size:20px; }
+      #mobile-menu { display:none !important; }
+      .register-wrap { padding:48px; }
+    }
+
+    @media(max-width:767px){
+      .nav-links { display:none; }
+      .btn-primary { display:none; }
+      .brand .title { font-size:18px; }
+      .hero h1 { font-size:44px; }
+      .cards { grid-template-columns:1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Gradient background -->
+  <div class="gradient-bg">
+    <div class="g-ball g-1"></div>
+    <div class="g-ball g-2"></div>
+    <div class="g-ball g-3"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="nav-inner container">
+      <a class="brand" href="#">
+        <span class="logo" aria-hidden="true">
+            <img src="img/fresher.png" alt="Jaipuria-Logo">
+        </span>
+        <span class="title">Jaipuria’s <span style="color:var(--accent-cyan)">'26</span></span>
+      </a>
+
+      <div class="nav-links" role="navigation" aria-label="Main navigation">
+        <a class="active" href="#home">Home</a>
+        <!-- <a href="#about">Vibe</a> -->
+        <a href="#details">Details</a>
+      </div>
+
+      <div class="nav-cta">
+        <a class="btn-primary" href="#register">Join the Party</a>
+        <button id="menu-btn" class="menu-btn" aria-controls="mobile-menu" aria-expanded="false">
+          <i data-lucide="menu" style="width:20px;height:20px;"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" aria-hidden="true">
+    <button id="close-menu" class="close" aria-label="Close menu"><i data-lucide="x" style="width:28px;height:28px;"></i></button>
+    <a class="mobile-link" href="#home">Home</a>
+    <a class="mobile-link" href="#details">Details</a>
+    <a class="mobile-link" href="#register" style="color:var(--accent-cyan)">Register Now</a>
+  </div>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="center container" style="max-width:900px;">
+      <div class="label">Official Invitation</div>
+
+      <h1 class="text-glow">
+        REUNION<br>
+        <span class="gradient-text">EVENT</span>
+      </h1>
+
+      <p class="lead">A grand homecoming of memories, friendships, and the spirit of Jaipuria.</p>
+
+      <div class="actions">
+        <a href="#register" class="ticket-primary">Get Your Ticket &nbsp;<i data-lucide="ticket" style="width:16px;height:16px;"></i></a>
+        <a href="#details" class="btn-secondary">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Details -->
+  <section id="details" class="section">
+    <div class="container">
+      <h2 class="title center"><span style="color:var(--accent-pink)">EVENT</span> INTEL</h2>
+
+      <div class="cards">
+        <div class="card glass-panel" style="border-top-color:var(--accent-purple);">
+          <div class="icon-wrap" style="background: rgba(124,58,237,0.12); color:var(--accent-purple);">
+            <i data-lucide="calendar-days" style="width:24px;height:24px;"></i>
+          </div>
+          <div class="h3">When?</div>
+          <div class="muted">Saturday, 28 march 2026</div>
+          <div class="sub-muted">Doors open at 6:00 PM</div>
+        </div>
+
+        <div class="card glass-panel" style="border-top-color:var(--accent-cyan);">
+          <div class="icon-wrap" style="background: rgba(0,243,255,0.08); color:var(--accent-cyan);">
+            <i data-lucide="map-pin" style="width:24px;height:24px;"></i>
+          </div>
+          <div class="h3">Where?</div>
+          <div class="muted">The Grand Ballroom</div>
+          <div class="sub-muted">Kanpur</div>
+        </div>
+
+        <div class="card glass-panel" style="border-top-color:var(--accent-pink);">
+          <div class="icon-wrap" style="background: rgba(244,114,182,0.08); color:var(--accent-pink);">
+            <i data-lucide="shirt" style="width:24px;height:24px;"></i>
+          </div>
+          <div class="h3">Dress Code</div>
+          <div class="muted">Cyberpunk / Neon Chic</div>
+          <div class="sub-muted">Dress to glow</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration -->
+  <section id="register" class="section">
+    <div class="container">
+      <div class="register-wrap glass-panel">
+        <div class="panel-deco" aria-hidden="true"></div>
+
+        <div class="center" style="margin-bottom:18px;">
+          <h2 style="font-family:'Righteous',cursive;margin:0 0 6px;">Secure Your Spot</h2>
+          <div class="sub-muted" style="margin-top:6px;">Limited entries available for the 2026 Event</div>
+        </div>
+
+        <form id="contactForm">
+          <!-- Name -->
+          <div>
+            <label class="field-label" for="name">Full Name</label>
+            <div class="input-wrap">
+              <span class="input-icon"><i data-lucide="user" style="width:16px;height:16px;color:#9ca3af;"></i></span>
+              <input id="name" type="text" class="form-input" placeholder="John Doe" required>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <label class="field-label" for="number">Phone Number</label>
+            <div class="input-wrap">
+              <span class="input-icon"><i data-lucide="phone" style="width:16px;height:16px;color:#9ca3af;"></i></span>
+              <input id="number" type="tel" class="form-input" placeholder="638850XXXX" required>
+            </div>
+          </div>
+
+          <!-- Can you Attend? -->
+          <div>
+            <label class="field-label">Can You Attend?</label>
+            <ul class="checkbox-list" role="list">
+              <li class="checkbox-row">
+                <label class="round-check">
+                  <input type="checkbox" value="Yes,  I'll be there" class="Attend-check">
+                  <span class="circle"></span>
+                </label>
+                <span style="color:#e6eef8">Yes, I'll be there</span>
+              </li>
+
+              <li class="checkbox-row">
+                <label class="round-check">
+                  <input type="checkbox" value="Sorry, can't make it" class="Attend-check">
+                  <span class="circle"></span>
+                </label>
+                <span style="color:#e6eef8">Sorry, can't make it</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Attending someone else -->
+          <div>
+            <label class="field-label">Will you be attending alone or with your spouse and/or kids?</label>
+            <ul class="checkbox-list">
+              <li class="checkbox-row">
+                <label class="round-check">
+                  <input type="checkbox" value="Alone" class="someone-check">
+                  <span class="circle"></span>
+                </label>
+                <span style="color:#e6eef8">Alone</span>
+              </li>
+
+              <li class="checkbox-row">
+                <label class="round-check">
+                  <input type="checkbox" value="With Spouse" class="someone-check">
+                  <span class="circle"></span>
+                </label>
+                <span style="color:#e6eef8">With Spouse</span>
+              </li>
+
+              <li class="checkbox-row">
+                <label class="round-check">
+                  <input type="checkbox" value="Without Spouse" class="someone-check">
+                  <span class="circle"></span>
+                </label>
+                <span style="color:#e6eef8">Without Spouse</span>
+              </li>
+
+              <li class="checkbox-row">
+                <label class="round-check">
+                  <input type="checkbox" value="NA" class="someone-check">
+                  <span class="circle"></span>
+                </label>
+                <span style="color:#e6eef8">NA</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Number of people -->
+          <div>
+            <label class="field-label" for="people-number">What will be the total number of people attending?</label>
+            <div class="input-wrap">
+              <input id="people-number" type="number" class="form-input" placeholder="0" required>
+            </div>
+          </div>
+
+          <!-- Accommodation -->
+          <div>
+            <label class="field-label">Do you need support in arranging accommodation in Kanpur?</label>
+
+            <ul class="checkbox-list">
+              <li class="checkbox-row">
+                <label class="round-check">
+                  <input type="checkbox" value="Yes" class="support-check">
+                  <span class="circle"></span>
+                </label>
+                <span style="color:#e6eef8">Yes</span>
+              </li>
+
+              <li class="checkbox-row">
+                <label class="round-check">
+                  <input type="checkbox" value="No" class="support-check">
+                  <span class="circle"></span>
+                </label>
+                <span style="color:#e6eef8">No</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Submit -->
+          <button id="rzp-button1" type="submit" class="btn-submit">REGISTER NOW</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p style="margin:0;display:flex;align-items:center;justify-content:center;gap:8px;">
+      Reconnecting Hearts <i data-lucide="heart" style="width:16px;height:16px;color:#ef4444;"></i> 
+    </p>
+    <p>
+         © 2026 Jaipuria College Reunion.
+    </p>
+    <div class="social-links" style="margin-top:10px;">
+      <a href="#"><i data-lucide="instagram" style="width:18px;height:18px;"></i></a>
+      <a href="#"><i data-lucide="twitter" style="width:18px;height:18px;"></i></a>
+      <a href="#"><i data-lucide="facebook" style="width:18px;height:18px;"></i></a>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" aria-hidden="true">
+    <div class="toast-inner">
+      <div style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:rgba(74,222,128,0.08);color:#4ade80;">
+        <i data-lucide="check" style="width:16px;height:16px;"></i>
+      </div>
+      <div style="font-size:14px;color:#e6fdf0;">Registration Successful! See you there.</div>
+    </div>
+  </div>
+
+  <!-- Razorpay (kept) -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script>
+    
+    // Allow only one checkbox from a group
+    function allowOnlyOne(className) {
+      const boxes = document.querySelectorAll("." + className);
+      boxes.forEach((box) => {
+        box.addEventListener("change", () => {
+          if (box.checked) {
+            boxes.forEach((other) => {
+              if (other !== box) other.checked = false;
+            });
+          }
+        });
+      });
+    }
+    allowOnlyOne("Attend-check");
+    allowOnlyOne("someone-check");
+    allowOnlyOne("support-check");
+
+    // Contact form handling (console log + alert)
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("number").value.trim();
+      const people = document.getElementById("people-number").value.trim();
+
+      const attend = document.querySelector(".Attend-check:checked")?.value || "";
+      const someone = document.querySelector(".someone-check:checked")?.value || "";
+      const support = document.querySelector(".support-check:checked")?.value || "";
+
+      const formData = { name, phone, people, attend, someone, support };
+      console.log("FORM DATA:", formData);
+      alert("Form submitted! Check console for data.");
+    });
+
+    // Mobile Menu controls
+    lucide.createIcons();
+
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenuBtn = document.getElementById('close-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMenu() {
+      const open = mobileMenu.classList.contains('open');
+      if (!open) {
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      }
+    }
+
+    menuBtn.addEventListener('click', toggleMenu);
+    closeMenuBtn.addEventListener('click', toggleMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+    // Form submission simulation + toast
+    const form = document.getElementById('contactForm');
+    const toast = document.getElementById('toast');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('rzp-button1');
+      const originalText = btn.innerText;
+
+      btn.innerText = 'PROCESSING...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.disabled = false;
+        form.reset();
+
+        // show toast
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
