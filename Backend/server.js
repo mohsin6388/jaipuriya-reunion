@@ -13,8 +13,31 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 
+onst allowedOrigins = [
+  "http://https://www.ultimatejaipurians.in",
+];
 
-app.use(cors()); 
+
+app.use(
+  cors({
+
+origin: function (origin, callback) {
+      // For tools like Postman or same-origin requests
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        // ✅ This origin is allowed
+        return callback(null, true);
+      } else {
+        // ❌ Not allowed
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // if you use cookies / auth headers from frontend
+  })
+);
+
+
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
