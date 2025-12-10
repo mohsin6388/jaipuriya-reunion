@@ -14,14 +14,12 @@ const PORT = process.env.PORT || 8000;
 
 
 const allowedOrigins = [
-<<<<<<< HEAD
   "http://localhost:5173",
    "http://127.0.0.1:5500",
    "http://localhost:5500",
   "www.ultimatejaipurians.in",
-=======
   "https://www.ultimatejaipurians.in",
->>>>>>> fa8317deb2692313bb3feab40d8daf14fd9e66f4
+
 ];
 
 
@@ -29,32 +27,21 @@ app.use(
   cors({
 
 origin: function (origin, callback) {
-      // For tools like Postman or same-origin requests
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
-        // ✅ This origin is allowed
         return callback(null, true);
       } else {
-        // ❌ Not allowed
+        
         return callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true, // if you use cookies / auth headers from frontend
+    credentials: true, 
   })
 );
 
-<<<<<<< HEAD
 
 
-
-
-
-
-
-
-=======
->>>>>>> fa8317deb2692313bb3feab40d8daf14fd9e66f4
 
 app.use(bodyParser.json());
 app.use(express.json());
