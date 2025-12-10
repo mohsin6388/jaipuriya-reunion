@@ -21,39 +21,80 @@
 
 *{box-sizing:border-box}
 
-html,body{height:100%; margin:0}
+html,body{
+  height:fit-content; 
+  width: 100%;
+}
+
 body{
   font-family:Inter, Poppins, system-ui, -apple-system, "Segoe UI", Roboto;
   background: radial-gradient(600px 300px at 10% 20%, rgba(0,212,255,0.06), transparent),
               radial-gradient(600px 300px at 90% 80%, rgba(255,77,184,0.04), transparent),
               var(--bg);
   color:#e6eef8;
-  display:flex;align-items:center;justify-content:center;padding:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+
+.page-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.pay-success{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0;
 }
 
 .container{
-  width:100%;max-width:980px;
-  display:flex;gap:24px;flex-direction:column;align-items:center;
+  width:100%;
+  max-width:980px;
+  background-color: #ff4db8;
+  display:flex;
+  gap:24px;
+  flex-direction:column;
+  align-items:center;
+  justify-content: center;
 }
+
 .header{
   text-align:center;
   margin: 20px;
 }
-.header h1{margin:0;font-size:1.05rem;font-weight:700;letter-spacing:0.6px}
+
+.header h1{margin:0;font-size:1.5rem;font-weight:700;letter-spacing:0.6px}
+
 .header p{margin:6px 0 0;color:rgba(230,238,248,0.75);font-size:0.92rem}
+
 .ticket-wrap{
   width:100%;
-  display:grid;
-  grid-template-columns: 1fr 320px;
+  height: 80%;
+  /* display:grid; 
+  grid-template-columns: 1fr 320px; */
+  margin: auto;
   gap:20px;
 }
+
+
 .ticket{
+  background-color: yellow;
   background:var(--glass);
   border-radius:18px;
   padding:22px;
   border:1px solid var(--muted);
   box-shadow: 0 20px 40px rgba(3,8,18,0.6);
-  position:relative;overflow:hidden;
+  position:relative;
+  overflow:hidden;
 }
 .ticket::after{
   content:'';position:absolute;inset:0;pointer-events:none;
@@ -69,15 +110,45 @@ body{
 .event-info{flex:1}
 .event-title{font-family: 'Orbitron', sans-serif; font-size:1.6rem; font-weight: 600; margin:0;text-transform:uppercase;line-height:1}
 .tagline{margin-top:10px;color:rgba(230,238,248,0.8);font-weight:600;font-size:0.9rem}
-.details-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
-.detail{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-.detail .label{font-size:0.72rem;color:rgba(230,238,248,0.6);text-transform:uppercase}
-.detail .value{margin-top:6px;font-weight:700;font-size:0.98rem}
+
+.details-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:10px;
+  margin-top:6px
+}
+
+.detail{
+  background:rgba(255,255,255,0.02);
+  padding:10px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.03)
+}
+
+
+.label{
+  font-size: 0.7rem;
+  color:rgba(230,238,248,0.6);
+}
+
+.detail {
+  font-size:0.9rem;
+  color: white;
+}
+.detail .value{margin-top:6px;font-weight:600;font-size:0.98rem}
 .footer-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
 .count-pill{background:rgba(255,255,255,0.03);padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);font-weight:700}
 .actions{display:flex;gap:12px}
 .btn{background:linear-gradient(90deg,var(--accent1),var(--accent2));border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;color:#051426}
 .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:rgba(230,238,248,0.9)}
+
+
+.details-grid h1 {
+  text-align: end;
+
+}
+
+
 
 .stub{
   background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
@@ -97,7 +168,10 @@ body{
   .notch{right:260px}
 }
 @media (max-width:720px){
-  .ticket-wrap{grid-template-columns:1fr;}
+
+  .page-container{ padding: 20px; gap: 30px}
+
+  .ticket-wrap{grid-template-columns:1fr; padding: 0 30px;}
   .notch{display:none}
   .ticket{padding:18px}
   .title-row{flex-direction:row;gap:12px}
@@ -121,13 +195,26 @@ body{
 
 </head>
 
+
+
+
+
+
 <body>
 
 
-  <div>
+  <div class="page-container">
+
+    <div class="pay-success">
+      <div style="width: 60px; height: 60px;">
+      <img src="img/payment-tick-remove.png" style="width: 100%; height: 100%;" alt="">
+    </div>
+
     <div class="header">
-      <h1>Payment received — your pass is ready</h1>
-      <p>Download this ticket</p>
+      <h1>Thankyou For Payment.</h1>
+      <h1>Your pass is ready</h1>
+      <!-- <p>Download this ticket</p> -->
+    </div>
     </div>
 
 
@@ -145,29 +232,41 @@ body{
           </div>
 
           <div class="details-grid">
-            <div class="detail"><div class="label">Date</div><div class="value">March 28, 2026</div></div>
-            <div class="detail"><div class="label">Time</div><div class="value">6:00 PM Onwards</div></div>
-            <div class="detail"><div class="label">Venue</div><div class="value">The Grand Ballroom</div></div>
-            <div class="detail"><div class="label">No. of People</div><div id="noPeople" class="value">X</div></div>
+            <div class="detail">
+              <div class="label">DATE</div><div id="pass-name" class="value">March 28, 2026</div></div>
+            <div class="detail"><div class="label">TIME</div><div class="value">6:00 PM Onwards</div></div>
+            <div class="detail"><div class="label">VENUE</div><div class="value">The Grand Ballroom</div></div>
+            <div class="detail"><div class="label">No. Of People</div><div id="noPeople-local" class="value">X</div></div>
+          </div>
+
+          <div style="margin: auto;" >
+              <h1 id="name-local">Mohammad Mohsin</h1>
           </div>
 
           <div class="qr-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-              <div id="qrcode" style="text-align: center;"></div>
-              <h4 id="qr-text-show"></h4>
+              <canvas  id="partyQR" style="text-align: center;"></canvas>
+              <!-- <h4 id="qr-text-show"></h4> -->
           </div>
 
-
-          <div class="footer-row">
-            <div class="count-pill">Admit: 1 Person</div>
-            <div class="actions">
-              <button class="btn" onclick="downloadTicketPDF()">Download PDF</button>
-            </div>
+          <div class="details-grid">
+            <div class="detail"><div class="label">City</div><div id="city-local" class="value">Kanpur</div></div>
+            <div class="detail"><div class="label">Phone Number</div><div id="phone-local" class="value">6388505758</div></div>
+            <div class="detail"><div class="label">Email</div><div id="email-local" class="value"></div></div>
           </div>
+
         </div>
       </div>
 
 
     </div>
+
+
+    <div class="footer-row">
+            <!-- <div class="count-pill">Admit: 1 Person</div> -->
+            <div class="actions">
+              <button class="btn" onclick="downloadTicketPDF()">Download PDF</button>
+            </div>
+          </div>
 
 
 
@@ -186,39 +285,87 @@ body{
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+  <!-- <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script> -->
 
- <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
 
-  <script>
+
+
+
+<script>
+
+
+//--------------------------------------
+//        Manipulate pass value
+//--------------------------------------
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const phoneNumber = localStorage.getItem('phone') 
+  const noPeople = localStorage.getItem('no-people') 
+
+  document.getElementById('phone-local').textContent = phoneNumber
+  document.getElementById('noPeople-local').textContent = noPeople
+  document.getElementById('city-local').textContent = localStorage.getItem('city')  
+  document.getElementById('email-local').textContent = localStorage.getItem('email')
+  document.getElementById('name-local').textContent = localStorage.getItem('name')
+
+  }
+)     
+
+
+
+
+
+
+
 
 
 //---------------------------------------------------
 //             QR Generator
 //---------------------------------------------------
 
-const uniquePaymentId = "PAY_" + Date.now(); 
-    // Example output: PAY_1733662467123
 
-    // ✅ Generate QR as soon as the page opens
-    window.onload = function () {
-      generateQRCode(uniquePaymentId);
-      document.getElementById("qr-text-show").innerText = uniquePaymentId;
-    };
+document.addEventListener("DOMContentLoaded", async () => {
+
+  const qrCode = localStorage.getItem('qr-code')
+
+  QRCode.toCanvas(
+    document.getElementById("partyQR"),
+    qrCode,
+    { width: 100 }
+  );
+});
+
+
+
+
+
+
+// const uniquePaymentId = "PAY_" + Date.now(); 
+//     // Example output: PAY_1733662467123
+
+//     // ✅ Generate QR as soon as the page opens
+//     window.onload = function () {
+//       generateQRCode(uniquePaymentId);
+//       document.getElementById("qr-text-show").innerText = uniquePaymentId;
+//     };
 
 
     
-    function generateQRCode(text) {
-      const container = document.getElementById("qrcode");
-      container.innerHTML = ""; // clear old QR
+//     function generateQRCode(text) {
+//       const container = document.getElementById("qrcode");
+//       container.innerHTML = ""; // clear old QR
 
-      new QRCode(container, {
-        text: text,
-        width: 100,
-        height: 100,
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    }
+//       new QRCode(container, {
+//         text: text,
+//         width: 100,
+//         height: 100,
+//         correctLevel: QRCode.CorrectLevel.H
+//       });
+//     }
 
 
 
@@ -241,101 +388,165 @@ const uniquePaymentId = "PAY_" + Date.now();
 
 
   // Use this function for the Download PDF button
+  // async function downloadTicketPDF() {
+  //   // 1) select the element to capture
+  //   const node = document.querySelector('.ticket-wrap'); // or '.ticket' or '#partyTicket'
+
+  //   if (!node) {
+  //     alert('Ticket element not found.');
+  //     return;
+  //   }
+
+  //   // 2) temporarily remove any animation / hover transforms so capture is stable
+  //   const prevTransition = node.style.transition;
+  //   node.style.transition = 'none';
+
+  //   // 3) configure html2canvas
+  //   const scale = 2; // higher = sharper
+  //   const canvas = await html2canvas(node, {
+  //     scale,
+  //     useCORS: true,          // allow cross-origin images if configured
+  //     backgroundColor: "#000",  // capture transparent background if any
+  //     scrollY: -window.scrollY // stable capture even if page scrolled
+  //   });
+
+  //   // restore transition
+  //   node.style.transition = prevTransition;
+
+  //   // 4) convert canvas to image
+  //   const imgData = canvas.toDataURL('image/png');
+
+  //   // 5) create a pdf and add the image (handles multi-page if needed)
+  //   const { jsPDF } = window.jspdf;
+  //   // Choose orientation based on element aspect ratio
+  //   const imgWidthPx = canvas.width;
+  //   const imgHeightPx = canvas.height;
+  //   const pdfFormat = imgWidthPx > imgHeightPx ? 'landscape' : 'portrait';
+  //   const pdf = new jsPDF({ orientation: pdfFormat, unit: 'pt', format: 'a4' });
+
+    
+
+
+    
+
+  //   // Convert pixel dimensions -> PDF points using 72 DPI relative to canvas scale:
+  //   // We map image width to page width and scale height proportionally.
+  //   // const ratio = imgWidthPx / pageWidth;
+  //   // const imgDisplayWidth = pageWidth;
+  //   // const imgDisplayHeight = imgHeightPx / ratio;
+
+  //   // let position = 0;
+
+  //   // if (imgDisplayHeight <= pageHeight) {
+  //     // Single page: center vertically
+  //   //   const y = (pageHeight - imgDisplayHeight) / 2;
+  //   //   pdf.addImage(imgData, 'PNG', 0, y, imgDisplayWidth, imgDisplayHeight);
+  //   // } else {
+  //     // Multi-page: slice the image into page-sized chunks
+  //     // We'll draw the full image but shift the source region using canvas cropping trick:
+      
+      
+      
+      
+      
+  //     let remainingHeight = imgDisplayHeight;
+  //     let srcYpx = 0;
+  //     const pxPerPt = imgWidthPx / imgDisplayWidth; // pixels per pdf point
+
+  //     while (remainingHeight > 0) {
+  //       // create a temporary canvas with the slice height in px
+  //       const sliceHeightPx = Math.min(pageHeight * pxPerPt, imgHeightPx - srcYpx);
+  //       const sliceCanvas = document.createElement('canvas');
+  //       sliceCanvas.width = imgWidthPx;
+  //       sliceCanvas.height = sliceHeightPx;
+  //       const ctx = sliceCanvas.getContext('2d');
+
+  //       // draw the slice from the large canvas
+  //       ctx.drawImage(
+  //         canvas,
+  //         0, srcYpx,                       // sx, sy
+  //         imgWidthPx, sliceHeightPx,      // sWidth, sHeight
+  //         0, 0,                           // dx, dy
+  //         imgWidthPx, sliceHeightPx       // dWidth, dHeight
+  //       );
+
+  //       const sliceData = sliceCanvas.toDataURL('image/png');
+
+  //       // compute display height in points for this slice
+  //       const sliceDisplayHeight = sliceHeightPx / pxPerPt;
+
+  //       // add to pdf
+  //       if (position > 0) pdf.addPage(); // new page after first
+  //       pdf.addImage(sliceData, 'PNG', 0, 0, imgDisplayWidth, sliceDisplayHeight);
+
+  //       // advance
+  //       remainingHeight -= sliceDisplayHeight;
+  //       srcYpx += sliceHeightPx;
+  //       position++;
+  //     }
+
+
+  //     // 6) Save file
+  //   const filename = `ticket-${new Date().toISOString().slice(0,10)}.pdf`;
+  //   pdf.save(filename);
+
+
+  //   }
+  
+
   async function downloadTicketPDF() {
-    // 1) select the element to capture
-    const node = document.querySelector('.ticket-wrap'); // or '.ticket' or '#partyTicket'
+  // 1) select the element to capture
+  const node = document.querySelector('.ticket-wrap');
 
-    if (!node) {
-      alert('Ticket element not found.');
-      return;
-    }
-
-    // 2) temporarily remove any animation / hover transforms so capture is stable
-    const prevTransition = node.style.transition;
-    node.style.transition = 'none';
-
-    // 3) configure html2canvas
-    const scale = 2; // higher = sharper
-    const canvas = await html2canvas(node, {
-      scale,
-      useCORS: true,          // allow cross-origin images if configured
-      backgroundColor: "#000",  // capture transparent background if any
-      scrollY: -window.scrollY // stable capture even if page scrolled
-    });
-
-    // restore transition
-    node.style.transition = prevTransition;
-
-    // 4) convert canvas to image
-    const imgData = canvas.toDataURL('image/png');
-
-    // 5) create a pdf and add the image (handles multi-page if needed)
-    const { jsPDF } = window.jspdf;
-    // Choose orientation based on element aspect ratio
-    const imgWidthPx = canvas.width;
-    const imgHeightPx = canvas.height;
-    const pdfFormat = imgWidthPx > imgHeightPx ? 'landscape' : 'portrait';
-    const pdf = new jsPDF({ orientation: pdfFormat, unit: 'pt', format: 'a4' });
-
-    const pageWidth = pdf.internal.pageSize.getWidth();   // pts
-    const pageHeight = pdf.internal.pageSize.getHeight(); // pts
-
-    // Convert pixel dimensions -> PDF points using 72 DPI relative to canvas scale:
-    // We map image width to page width and scale height proportionally.
-    const ratio = imgWidthPx / pageWidth;
-    const imgDisplayWidth = pageWidth;
-    const imgDisplayHeight = imgHeightPx / ratio;
-
-    let position = 0;
-
-    if (imgDisplayHeight <= pageHeight) {
-      // Single page: center vertically
-      const y = (pageHeight - imgDisplayHeight) / 2;
-      pdf.addImage(imgData, 'PNG', 0, y, imgDisplayWidth, imgDisplayHeight);
-    } else {
-      // Multi-page: slice the image into page-sized chunks
-      // We'll draw the full image but shift the source region using canvas cropping trick:
-      let remainingHeight = imgDisplayHeight;
-      let srcYpx = 0;
-      const pxPerPt = imgWidthPx / imgDisplayWidth; // pixels per pdf point
-
-      while (remainingHeight > 0) {
-        // create a temporary canvas with the slice height in px
-        const sliceHeightPx = Math.min(pageHeight * pxPerPt, imgHeightPx - srcYpx);
-        const sliceCanvas = document.createElement('canvas');
-        sliceCanvas.width = imgWidthPx;
-        sliceCanvas.height = sliceHeightPx;
-        const ctx = sliceCanvas.getContext('2d');
-
-        // draw the slice from the large canvas
-        ctx.drawImage(
-          canvas,
-          0, srcYpx,                       // sx, sy
-          imgWidthPx, sliceHeightPx,      // sWidth, sHeight
-          0, 0,                           // dx, dy
-          imgWidthPx, sliceHeightPx       // dWidth, dHeight
-        );
-
-        const sliceData = sliceCanvas.toDataURL('image/png');
-
-        // compute display height in points for this slice
-        const sliceDisplayHeight = sliceHeightPx / pxPerPt;
-
-        // add to pdf
-        if (position > 0) pdf.addPage(); // new page after first
-        pdf.addImage(sliceData, 'PNG', 0, 0, imgDisplayWidth, sliceDisplayHeight);
-
-        // advance
-        remainingHeight -= sliceDisplayHeight;
-        srcYpx += sliceHeightPx;
-        position++;
-      }
-    }
-
-    // 6) Save file
-    const filename = `ticket-${new Date().toISOString().slice(0,10)}.pdf`;
-    pdf.save(filename);
+  if (!node) {
+    alert('Ticket element not found.');
+    return;
   }
+
+  // 2) temporarily remove any animation / hover transforms so capture is stable
+  const prevTransition = node.style.transition;
+  node.style.transition = 'none';
+
+  // 3) configure html2canvas
+  const scale = 2;
+  const canvas = await html2canvas(node, {
+    scale,
+    useCORS: true,
+    backgroundColor: "#14192D",
+    scrollY: -window.scrollY
+  });
+
+  // restore transition
+  node.style.transition = prevTransition;
+
+  // 4) convert canvas to image
+  const imgData = canvas.toDataURL('image/png');
+
+  // 5) create SMALL PASS PDF (✅ CHANGED PART)
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+
+  // ✅ SMALL PASS SIZE — YOU CAN ADJUST THIS
+  const passWidth = 350;   
+  const passHeight = 500;  
+
+  // ✅ CENTER POSITION
+  const x = (pageWidth - passWidth) / 2;
+  const y = (pageHeight - passHeight) / 2;
+
+  // ✅ ADD SMALL CENTERED IMAGE
+  pdf.addImage(imgData, 'PNG', x, y, passWidth, passHeight);
+
+  // 6) Save file
+  const filename = `ticket-${new Date().toISOString().slice(0, 10)}.pdf`;
+  pdf.save(filename);
+}
+
+
+
 </script>
 
 </body>

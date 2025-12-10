@@ -13,8 +13,41 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 
+const allowedOrigins = [
+  "http://localhost:5173",
+   "http://127.0.0.1:5500",
+   "http://localhost:5500",
+];
 
-app.use(cors()); 
+
+app.use(
+  cors({
+
+origin: function (origin, callback) {
+      // For tools like Postman or same-origin requests
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        // ✅ This origin is allowed
+        return callback(null, true);
+      } else {
+        // ❌ Not allowed
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // if you use cookies / auth headers from frontend
+  })
+);
+
+
+
+
+
+
+
+
+
+
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -44,6 +77,7 @@ const razorpay = new Razorpay({
 app.post('/create-order', async (req, res) => {
     try {
         const {amount, receipt}  = req.body
+        console.log(req.body)
 
         const options = {
             amount: amount,     // Amount in smallest currency unit (e.g., 50000 paise = 500 INR)
@@ -81,12 +115,9 @@ app.post('/verify-payment', async (req, res) => {
 
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = paymentDetails;
 
-    console.log("Its Key secret above")
-
     //Secret_Key
     const key_secret = process.env.RAZORPAY_KEY_SECRET  
 
-     console.log("Its Key secret below")
 
     // Generate the expected signature
     const generated_signature = crypto
@@ -94,21 +125,25 @@ app.post('/verify-payment', async (req, res) => {
         .update(razorpay_order_id + "|" + razorpay_payment_id)
         .digest('hex');
 
-        console.log("Its totally verify and now store data to DB")
 
     if (generated_signature === razorpay_signature) {
         // console.log("Payment verified successfully");
+
+
+        const uniquePassCode = "PASS_" + crypto.randomBytes(8).toString("hex");
 
         //Store User Data
         const userData = await User_Model.create({
                                                   user_name: formData.name,
                                                   user_number: formData.phone,
+                                                  user_email: formData.email,
                                                   address: formData.address,
                                                   city: formData.city,
                                                   adhaar: formData.adhaar,
                                                   attend_someone: formData.someone,
                                                   how_many_people: formData.noPeople,
                                                   support: formData.support,
+                                                  qr_code: uniquePassCode,
                                                  })
 
 
@@ -116,7 +151,7 @@ app.post('/verify-payment', async (req, res) => {
             // const amount = payment.amount / 100;
 
         
-        res.status(200).json({ status: 'success', message: 'Payment verified successfully' });
+        res.status(200).json({ status: 'success', data: userData, message: 'Payment verified successfully' });
 
     } else {
         // Signature mismatch
@@ -136,6 +171,10 @@ app.post('/verify-payment', async (req, res) => {
 
 
 app.use('/admin', router)
+
+
+
+app.use('/user', router)
 
 
 

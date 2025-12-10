@@ -12,6 +12,11 @@ const UserInfo_Schema = new mongoose.Schema({
         required: true, 
     },
 
+    user_email: {
+        type: String,
+        required: true,
+    },
+
     address: {
         type: String,
         required: true,
@@ -38,6 +43,11 @@ const UserInfo_Schema = new mongoose.Schema({
     },
 
     support: {
+        type: String,
+        required: true,
+    },
+
+    qr_code: {
         type: String,
         required: true,
     },
