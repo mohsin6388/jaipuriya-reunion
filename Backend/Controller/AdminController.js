@@ -90,6 +90,9 @@ async function handleGetUserPass(req, res){
 
     const {email, phone} = req.body;
 
+    console.log(email)
+    console.log(phone)
+
     try {
 
         const findUser = await User_Model.findOne({ 

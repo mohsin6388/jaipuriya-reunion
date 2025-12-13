@@ -18,7 +18,7 @@ const multer = require('multer');
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB max
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 20 * 1024 * 1024 } }); // 20MB max
 
 
 const allowedOrigins = [
@@ -52,8 +52,8 @@ origin: function (origin, callback) {
 
 
 app.use(bodyParser.json());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '20mb' }));
+app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
 
 mongoose.connect(process.env.MONGO_URL)
@@ -182,8 +182,9 @@ const transporter = nodemailer.createTransport({
        port: 587,
        secure: false,
        auth: {
-          user: 'mohsin06388@gmail.com',   // your email
-          pass: 'rnyv gyew qeek ddwm',    // your app password
+          user: 'ultimatejaipurians@gmail.com',   // your email
+          pass: 'kpib vtjc xdmz hkat'
+        //pass: 'rnyv gyew qeek ddwm',    // your app password
         }
 })
 
@@ -194,8 +195,7 @@ transporter.verify()
   .then(() => console.log("🔁 Mailer ready"))
   .catch(err => {
     console.error("Mailer verification failed — check credentials and network:", err);
-    // optionally exit process if mailer is required
-    // process.exit(1);
+    
   });
 
 
@@ -268,30 +268,30 @@ cron.schedule("32 15 * * *", async () => {
 
 app.post('/api/upload-pdf', upload.single('file'), async (req, res) => {
 
-  console.log("===========sent pdf after payemnt ready api called")
   try {
-    // Basic validation
+    
     if (!req.file) return res.status(400).json({ error: 'No file uploaded.' });
 
-    // Get optional form fields
-    const to = 'mosn0078600@gmail.com';
+   
+    const to = req.body.to;
     const subject = req.body.subject || 'Gala Re-Union Ticket';
     const text = req.body.text || 'Your Pass is Ready.';
 
-    // Send email using buffer (no disk write)
+    
     const mailOptions = {
-      from: 'mohsin06388@gmail.com',
-      to,
+      from: 'ultimatejaipurians@gmail.com',
+      to: to,
       subject,
       text,
       attachments: [
         {
           filename: req.file.originalname,
           content: req.file.buffer,
-          contentType: req.file.mimetype // should be application/pdf
+          contentType: req.file.mimetype 
         }
       ]
     };
+    
 
     const info = await transporter.sendMail(mailOptions);
 
