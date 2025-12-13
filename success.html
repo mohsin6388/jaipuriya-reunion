@@ -222,7 +222,7 @@ body{
 <body>
 
 
-  <div class="page-container">
+<div class="page-container">
 
 
     <div id="checkVisible">
@@ -489,10 +489,10 @@ async function sendEmailPDF() {
     formData.append('subject', 'Your Event Ticket');
     formData.append('text', 'Please find your ticket attached.');
 
-    const resp = await fetch('https://api.ultimatejaipurians.in/api/upload-pdf', {
+     const resp = await fetch('https://api.ultimatejaipurians.in/api/upload-pdf', {
       method: 'POST',
       body: formData
-      // include headers like Authorization if your backend needs them
+     
     });
 
     if (!resp.ok) {
