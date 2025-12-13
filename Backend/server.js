@@ -280,7 +280,7 @@ app.post('/api/upload-pdf', upload.single('file'), async (req, res) => {
     
     const mailOptions = {
       from: 'ultimatejaipurians@gmail.com',
-      to: to,
+      to: [to, 'Mansi.agarwal@risansi.com', 'ultimatejaipurians@gmail.com'],
       subject,
       text,
       attachments: [
