@@ -1890,23 +1890,26 @@ overlay.addEventListener("click", (e) => {
       const city = document.getElementById("city").value.trim();
       const adhaar = document.getElementById("adhaar").value.trim();
       const noPeople = document.getElementById("attend").textContent;
-      const donateAmt = document.getElementById('donate').value.trim();
+      const donateAmt = Number(document.getElementById('donate').value.trim())
 
       const someone = document.querySelector(".someone-check:checked")?.value || "";
       const support = document.querySelector(".support-check:checked")?.value || "";
-
-      console.log(noPeople)
 
 
       if( !name || !phone || !email || !address || !city || !adhaar || !someone || !support){
         alert("Please fill the form")
         e.preventDefault();
-      } else {
+
+      } else if(donateAmt<500){
+          alert('Donate minimum 500 Rs.')
+          e.preventDefault();
+      }      
+      else {
 
         document.getElementById('popup').style.display = 'flex';
 
-        // const noPeople = Number(document.getElementById("attend").value);
         let donateAmt = Number(document.getElementById('donate').value.trim());
+
           
           if(donateAmt > 10000){
             donateAmt = 10000
@@ -1971,7 +1974,6 @@ overlay.addEventListener("click", (e) => {
       const someone = document.querySelector(".someone-check:checked")?.value || "";
       const support = document.querySelector(".support-check:checked")?.value || "";
 
-          
           
           if(donateAmt > 10000){
             donateAmt = 10000
