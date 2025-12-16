@@ -856,6 +856,14 @@ nav.site-nav { z-index: 100;}
 }
 
 
+#openMap{
+  display: none; 
+  justify-content: center;
+  text-decoration: none;
+  color: yellow
+}
+
+
 
   </style>
 
@@ -1059,7 +1067,7 @@ nav.site-nav { z-index: 100;}
     <div class="muted" id="popupDate"></div>
     <div class="sub-muted" id="popupTime"></div>
 
-    <a style="display: none; justify-content: center;" id="openMap">open to map</a>
+    <a id="openMap">Open To Map <i data-lucide="arrow-up-right"></i></a>
 
     <button id="eventPopupClose">Close</button>
 
@@ -1354,9 +1362,9 @@ nav.site-nav { z-index: 100;}
                 <input id="donate" type="tel" class="form-input" placeholder="Donation Amount" required>
               </div>
               <!-- minimum 500 donation amount -->
-              <div id="minDonate" style="display: none; margin-left: 40px; padding: 5px; font-size: 14px; color: rgb(255, 64, 64);"> 
+              <!-- <div id="minDonate" style="display: none; margin-left: 40px; padding: 5px; font-size: 14px; color: rgb(255, 64, 64);"> 
                 Donate minimum 500 Rs.  
-              </div>
+              </div> -->
               <!-- maximum 10,000 donation amount -->
               <div id="maxDonate" style="display: none; margin-left: 40px; padding: 5px; font-size: 14px; color: rgb(255, 64, 64);"> 
                 Donate maximum 10,000 Rs.  
@@ -1524,10 +1532,10 @@ nav.site-nav { z-index: 100;}
 
     <div>
 			<h3 style="color: rgba(255, 255, 255, 0.747);">
-				+91-961-6242222
+				+91-9920908050
 			</h3>
 			<h3 style="color: rgba(255, 255, 255, 0.747);">
-				+91-979-2722136
+				+91-9120888197
 			</h3>
 		</div>
    </div>
@@ -1904,10 +1912,6 @@ overlay.addEventListener("click", (e) => {
       if( !name || !phone || !email || !address || !city || !adhaar || !someone || !support){
         alert("Please fill the form")
         e.preventDefault();
-
-      } else if(donateAmt<500){
-          alert('Donate minimum 500 Rs.')
-          e.preventDefault();
       }      
       else {
 
@@ -2217,6 +2221,8 @@ const music = document.getElementById('music');
 const noMusic = document.getElementsByClassName('stop-music');
 const audio = document.getElementById('bgMusic');
 
+audio.volume = 0.1;
+
 let checkMusic ;
 music.addEventListener('click', () => {
 
@@ -2235,7 +2241,7 @@ music.addEventListener('click', () => {
 
 window.addEventListener('load', () => {
   
-  let checkMusic = false;
+     checkMusic = false;
   if(!checkMusic){
     noMusic[0].style.display = 'block';
     audio.pause();
@@ -2245,7 +2251,6 @@ window.addEventListener('load', () => {
     audio.play();
     checkMusic = false;
   }
-
 
 });
 
