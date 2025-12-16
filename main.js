@@ -10,10 +10,20 @@
         //const BACKEND_URL = 'http://localhost:8000'  
 
 
+        window.addEventListener('load', () => {
+  initVenuePopup();
+  initDonationLogic();
+  initGrandTotal();
+  initFormPopup();
+});
+
+
+
         //-------------------------------
         //       Vanue Cards PopUp 
         //-------------------------------
-const overlay = document.getElementById("eventPopupOverlay");
+
+        const overlay = document.getElementById("eventPopupOverlay");
 const closeBtn = document.getElementById("eventPopupClose");
 
 // Popup text elements
@@ -45,7 +55,7 @@ cards.forEach(card => {
      }
 
     // re-render lucide icons
-    lucide.createIcons();
+    requestAnimationFrame(() => lucide.createIcons());
 
     overlay.style.display = "flex";
   });
@@ -443,10 +453,6 @@ overlay.addEventListener("click", (e) => {
 
 
         async function verifyPayment(paymentDetails, formData) {
-            // const statusMsg = document.getElementById('status-msg');
-            // statusMsg.classList.remove('hidden');
-            // statusMsg.textContent = "Verifying payment...";
-            // statusMsg.className = "mt-4 text-sm font-medium text-gray-600 block";
 
             try {
                 const response = await fetch(`${BACKEND_URL}/verify-payment`, {
@@ -510,7 +516,10 @@ overlay.addEventListener("click", (e) => {
     
 
     // Mobile Menu controls
-    lucide.createIcons();
+    document.addEventListener('DOMContentLoaded', () => {
+  lucide.createIcons();
+});
+    
 
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -591,7 +600,7 @@ music.addEventListener('click', () => {
 });
 
 
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   
      checkMusic = false;
   if(!checkMusic){
