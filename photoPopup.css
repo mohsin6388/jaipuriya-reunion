@@ -46,16 +46,14 @@
   max-height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   padding: 10px;
   padding-bottom: 30px;
   gap: 0px;
 }
 
-/* .pop-photo-content h1{
-    
-} */
+
 
 
 .pop-photo-style{
@@ -87,9 +85,9 @@
 @media(max-width: 786px){
 
 
-  .popup-photo-content {
+.popup-photo-content {
   width: 80%;
-  height: 45%;
+  height: 60%;
   background: #222;
   padding: 10px;
   display: flex;
@@ -104,7 +102,6 @@
     gap: 20px;
     padding: 0px ;
     overflow: hidden;
-    /* background-color: antiquewhite; */
   }
 
 
