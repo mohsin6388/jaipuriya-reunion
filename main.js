@@ -7,7 +7,7 @@
 
         const KEY_ID = 'rzp_test_RmjDo8lq7GTEsp';   
          const BACKEND_URL = 'https://api.ultimatejaipurians.in';  
-        //const BACKEND_URL = 'http://localhost:8000'  
+         //  const BACKEND_URL = 'http://localhost:8000'  
 
 
 
@@ -456,7 +456,7 @@ overlay.addEventListener("click", (e) => {
                 });
 
                 const result = await response.json();
-                console.log(result)
+                // console.log(result)
 
                 if (result.status === 'success') {
                     console.log("Verification successfully...")

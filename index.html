@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="popup.css">
     <link rel="stylesheet" href="contactForm.css">
     <link rel="stylesheet" href="photoPopup.css">
+    <link rel="stylesheet" href="photoUpload.css">
 
 
 
@@ -1151,111 +1152,13 @@ nav.site-nav { z-index: 100;}
 
                 <div id="track-pro" class="production-track">
 
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-1.jpeg')">
+                    <!-- <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-1.jpeg')">
                         <div class="production-in-card">
                             <div class="production-img">
-                                <img src='img/jaipuri-1.jpeg' alt="Automated Machine"/>
+                                <img src='http://localhost:8000/uploads/1765968004951.jpeg' alt="Automated Machine"/>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-2.jpeg')">
-                        <div class="production-in-card">
-                            <div class="production-img">
-                                <img src='img/jaipuri-2.jpeg' alt="Shoe Lasting"/>
-                            </div>
-                            
-                        </div>
-                    </div>
-
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-3.jpeg')">
-                        <div class="production-in-card">
-                            <div class="production-img">
-                                <img src='img/jaipuri-3.jpeg' alt="Drying"/>
-                            </div>
-                            
-                        </div>
-                    </div>
-
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-4.jpeg')">
-                        <div class="production-in-card">
-                            <div class="production-img">
-                                <img src='img/jaipuri-4.jpeg' alt="Dyeing"/>
-                            </div>
-                            
-                        </div>
-                    </div>
-
-
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-6.jpeg')">
-                        <div class="production-in-card">
-                            <div class="production-img">
-                                <img src='img/jaipuri-6.jpeg' alt="Heat Press"/>
-                            </div>
-                           
-                            </div>
-                    </div>
-
-
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-7.jpeg')">
-                        <div class="production-in-card">
-                            <div class="production-img">
-                                <img src='img/jaipuri-7.jpeg' alt="Heat Press"/>
-                            </div>
-                           
-                            </div>
-                    </div>
-
-
-        
-
-
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-5.jpeg')">
-                        <div class="production-in-card">
-                            <div class="production-img">
-                                <img src='img/jaipuri-5.jpeg' alt="Heat Press"/>
-                            </div>
-                           
-                            </div>
-                    </div>
-
-
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-10.jpeg')">
-                        <div class="production-in-card">
-                            <div class="production-img">
-                                <img src='img/jaipuri-10.jpeg' alt="Heat Press"/>
-                            </div>
-                           
-                            </div>
-                    </div>
-
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-11.jpeg')">
-                        <div class="production-in-card">
-                            <div class="production-img">
-                                <img src='img/jaipuri-11.jpeg' alt="Heat Press"/>
-                            </div>
-                           
-                            </div>
-                    </div>
-
-
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-12.jpeg')">
-                        <div class="production-in-card">
-                            <div class="production-img">
-                                <img src='img/jaipuri-12.jpeg' alt="Heat Press"/>
-                            </div>
-                           
-                            </div>
-                    </div>
-
-                    <div class="production-carousel-card" onclick="openPopPhoto('img/jaipuri-14.jpeg')">
-                        <div class="production-in-card">
-                            <div class="production-img">
-                                <img src='img/jaipuri-14.jpeg' alt="Heat Press"/>
-                            </div>
-                           
-                            </div>
-                    </div>
+                    </div> -->
 
 
 
@@ -1266,8 +1169,35 @@ nav.site-nav { z-index: 100;}
             <button id="next-pro" class="next-btn">&#10095;</button>
         </div>
     </section>
+    
 
-  <!-- end of 50 carousel -->
+
+
+    <div class="nav-cta" style="display: flex; justify-content: center; align-items: center;">
+      <a id="uploadPhoto" class="btn-primary">Upload</a>
+    </div>
+
+
+    <div class="popup-upload" id="popup-upload">
+     <div class="popup-photo-upload">
+        <span class="close-photo-btn" id="close-popup-upload" >&times;</span>
+	       <div class="upload-photo-above">
+                 
+          <div>
+                <div><h1>Upload Image In Carousel</h1></div>
+
+                    <form id="uploadForm" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap:20px">
+                      <input type="file" id="photo" accept="image/*" />
+                      <button class="btn-primary" type="submit">Upload</button>
+
+                    </form>
+                   
+          </div>
+
+
+	    </div>
+      </div>
+    </div>   
 
 
 
@@ -1554,25 +1484,6 @@ nav.site-nav { z-index: 100;}
 
 <div class="contact-section">
 
-  <!-- <div class="contact-left">
-    
-    <div>
-      <h1>Contact US</h1>
-      <h3>Email Us: ultimatejaipurians@gmail.com</h3>
-    
-
-    <div>
-			<h3 style="color: rgba(255, 255, 255, 0.747);">
-				+91-961-6242222
-			</h3>
-			<h3 style="color: rgba(255, 255, 255, 0.747);">
-				+91-979-2722136
-			</h3>
-		</div>
-   </div>
-
-  </div> -->
-
 
   <div class="contact-right">
 
@@ -1582,7 +1493,7 @@ nav.site-nav { z-index: 100;}
     
     <div>
       <h1>Contact US</h1>
-      <h3>Email Us: <span style="color: rgba(255, 255, 255, 0.747);"> ultimatejaipurians@gmail.com</span></h3>
+      <h3>Email Us: <span style="color: rgba(255, 255, 255, 0.747);">ultimatejaipurians@gmail.com</span></h3>
     
 
     <div>
@@ -1699,21 +1610,87 @@ nav.site-nav { z-index: 100;}
      <script src="main.js" defer></script>
      <script src="carousel.js" defer></script>
 
-     <script>
     
-    document.addEventListener('DOMContentLoaded', () => {
+    
+    <script>
+
+
+
+     //Upload Photo Open
+      document.getElementById('uploadPhoto').addEventListener('click', function () {
+	            document.getElementById("popup-upload").style.display = "flex";
+
+	            function closePopup() {
+                document.getElementById("popup-upload").style.display = "none";
+                }
+
+               document.getElementById("close-popup-upload").addEventListener("click", (e) => {
+                if (e.target.id === "close-popup-upload") closePopup();
+               });
+
+
+      })
+        
+  
+      
+
+  document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  console.log('FORM SUBMIT INTERCEPTED');
+
+  const fileInput = document.getElementById('photo');
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert('Select an image');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('photo', file);
+
+  try {
+    const res = await fetch('https://api.ultimatejaipurians.in/upload/photos', {
+      method: 'POST',
+      body: formData
+    });
+
+    console.log('STATUS:', res.status);
+
+    const text = await res.text();   // 👈 IMPORTANT
+    console.log('RAW RESPONSE:', text);
+
+    const data = JSON.parse(text);
+    console.log('UPLOAD SUCCESS', data);
+
+  } catch (err) {
+    console.error('UPLOAD FAILED (REAL ERROR):', err);
+  }
+});
+
+
+
+
+
+    
+
+
+
+
+    //================================================================================
+        document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('loader').style.display = 'none';
       document.getElementById('app').style.display = 'block';
     });
 
-    const video = document.getElementsByTagName('video')
+            const video = document.getElementsByTagName('video')
 
-    document.addEventListener('load', () => {
+            document.addEventListener('load', () => {
 
-  setTimeout(() => {
-    video.load();
-  }, 2000);
-});
+          setTimeout(() => {
+            video.load();
+          }, 2000);
+        });
 
      </script>
 
