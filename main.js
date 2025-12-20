@@ -577,41 +577,14 @@ const music = document.getElementById('music');
 const noMusic = document.getElementsByClassName('stop-music');
 const audio = document.getElementById('bgMusic');
 
-audio.volume = 0.01;
-audio.muted = true;     // required for autoplay
-audio.loop = true;
-
-audio.play().catch(() => {});
-
-let isMuted = true;
-
-let checkMusic ;
-music.addEventListener('click', () => {
-
-  isMuted = !isMuted;
-  audio.muted = isMuted;
-
-  noMusic[0].style.display = isMuted ? 'block' : 'none';
-  
-});
-
-
-
-
-
-// window.addEventListener('DOMContentLoaded', () => {
-  
-//      checkMusic = false;
-//   if(!checkMusic){
-//     noMusic[0].style.display = 'block';
-//     audio.pause();
-//     checkMusic = true;
-//   } else {
-//     noMusic[0].style.display = 'none';
-//     audio.play();
-//     checkMusic = false;
-//   }
-
-// });
-
-
+audio.volume = 0.01; 
+let checkMusic ; 
+music.addEventListener('click', () => { 
+  if(!checkMusic){
+     noMusic[0].style.display = 'block'; 
+     audio.pause(); checkMusic = true; 
+    } else { 
+      noMusic[0].style.display = 'none';
+       audio.play(); checkMusic = false; 
+      }
+    })
