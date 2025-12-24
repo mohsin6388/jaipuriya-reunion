@@ -219,7 +219,7 @@ overlay.addEventListener("click", (e) => {
 
     const passValue = getPassPrice(attendees);
 
-    const grand = passValue + donateAmt;
+    const grand = passValue*0 + donateAmt;
     grandTotalEl.textContent = grand.toLocaleString(); // formatted number
   }
 
@@ -285,15 +285,15 @@ overlay.addEventListener("click", (e) => {
          
         let passValue;
         if(noPeople == 1){
-          passValue = 5000;
+          passValue = 5000*0;
         } else if(noPeople == 2){
-          passValue = 7500;
+          passValue = 7500*0;
         } else {
           passValue = 0
         }
 
 
-        const totalValue = passValue + donateAmt;
+        const totalValue = passValue*0 + donateAmt;
         const taxValue = 18*totalValue/100;
         const payPrice = totalValue + taxValue;
 
@@ -348,9 +348,9 @@ overlay.addEventListener("click", (e) => {
 
       let passValue;
         if(noPeople == 1){
-          passValue = 5000;
+          passValue = 5000*0;
         } else if(noPeople == 2){
-          passValue = 7500;
+          passValue = 7500*0;
         } else {
           passValue = 0
         }
