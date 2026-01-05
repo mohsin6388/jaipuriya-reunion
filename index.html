@@ -976,7 +976,7 @@ nav.site-nav { z-index: 100;}
   <div class="nav-inner container">
     <a class="brand" href="#">
       <span class="logo" aria-hidden="true">
-        <img src="img/Jaipuria-logo.png" alt="Jaipuria-Logo">
+        <img src="img/bg-logo.png" alt="Jaipuria-Logo">
       </span>
       <span class="title">Ultimate Jaipurians <span style="color:var(--accent-cyan)">'2001 Batch</span></span>
     </a>
@@ -1076,7 +1076,7 @@ nav.site-nav { z-index: 100;}
   <div class="gradient-bg">
     <div style="width: 100%; height: 100%; 
                 display: flex; align-items: center; justify-content: center;">
-      <img class="bg-logo-section" src="img/Jaipuria-logo.png" alt="">
+      <img class="bg-logo-section" src="img/bg-logo.png" alt="">
     </div>
 
   </div>
@@ -1395,7 +1395,7 @@ nav.site-nav { z-index: 100;}
             <div>
               <div class="input-wrap">
                 <span class="input-icon"><i data-lucide="hand-coins" style="width:16px;height:16px;color:#9ca3af;"></i></span>
-                <input id="donate" type="tel" class="form-input" placeholder="Donation Amount" required>
+                <input id="donate" type="tel" class="form-input" placeholder="Donation Amount">
               </div>
               <!-- minimum 500 donation amount -->
               <!-- <div id="minDonate" style="display: none; margin-left: 40px; padding: 5px; font-size: 14px; color: rgb(255, 64, 64);"> 
@@ -1467,6 +1467,8 @@ nav.site-nav { z-index: 100;}
         </div>
 
         <div class="billing-body">
+
+            <!-- Temporary Remove -->
             <div class="billing-item">
                 <div class="item-label">
                     <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1492,7 +1494,7 @@ nav.site-nav { z-index: 100;}
                     <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                     </svg>
-                    GST (18%)
+                    GST (5%)
                 </div>
                 <div id="totalTax" class="item-amount">NA</div>
             </div>
@@ -1507,7 +1509,7 @@ nav.site-nav { z-index: 100;}
 
         <div class="billing-footer">
                   <button onclick="paymentRazorpay()" id="downloadBtn" class="btn pay-button">
-                    <span class="btn-text">Proceed to Payment</span>
+                    <span id="pay-btn" class="btn-text">Proceed to Payment</span>
                     <span class="loader"></span>
                   </button>
 
@@ -1665,6 +1667,9 @@ nav.site-nav { z-index: 100;}
     
     <script>
 
+      const BACKEND_URL_INDEX_PAGE = 'https://api.ultimatejaipurians.in'
+      //const BACKEND_URL_INDEX_PAGE = 'http://localhost:8000'
+      
 
 
      //Upload Photo Open
@@ -1678,8 +1683,6 @@ nav.site-nav { z-index: 100;}
                document.getElementById("close-popup-upload").addEventListener("click", (e) => {
                 if (e.target.id === "close-popup-upload") closePopup();
                });
-
-
       })
         
   
@@ -1704,7 +1707,7 @@ nav.site-nav { z-index: 100;}
   
 
   try {
-      const res = await fetch('https://api.ultimatejaipurians.in/upload/photos', {
+      const res = await fetch(`${BACKEND_URL_INDEX_PAGE}/upload/photos`, {
       method: 'POST',
       body: formData
     });

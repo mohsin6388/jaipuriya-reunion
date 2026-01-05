@@ -1,13 +1,7 @@
 
-        
-        //--------------------------------------------
-        //             Key & Backend url
-        //--------------------------------------------
-
-
-        const KEY_ID = 'rzp_test_RmjDo8lq7GTEsp';   
-         const BACKEND_URL = 'https://api.ultimatejaipurians.in';  
-         //  const BACKEND_URL = 'http://localhost:8000'  
+         const KEY_ID = 'rzp_test_RmjDo8lq7GTEsp';   
+         const BACKEND_URL_OF_INDEX = 'https://api.ultimatejaipurians.in';  
+        // const BACKEND_URL_OF_INDEX = 'http://localhost:8000'  
 
 
 
@@ -17,7 +11,7 @@
         //       Vanue Cards PopUp 
         //-------------------------------
 
-        const overlay = document.getElementById("eventPopupOverlay");
+const overlay = document.getElementById("eventPopupOverlay");
 const closeBtn = document.getElementById("eventPopupClose");
 
 // Popup text elements
@@ -244,7 +238,7 @@ overlay.addEventListener("click", (e) => {
 
 
         //-------------------------------------------------
-        //          Popup Open Final Priciing
+        //          Popup Open Final Pricing
         //------------------------------------------------
 
 
@@ -260,7 +254,7 @@ overlay.addEventListener("click", (e) => {
       const city = document.getElementById("city").value.trim();
       const adhaar = document.getElementById("adhaar").value.trim();
       const noPeople = document.getElementById("attend").textContent;
-      const donateAmt = Number(document.getElementById('donate').value.trim())
+      // const donateAmt = Number(document.getElementById('donate').value.trim())
 
       const someone = document.querySelector(".someone-check:checked")?.value || "";
       const support = document.querySelector(".support-check:checked")?.value || "";
@@ -274,27 +268,26 @@ overlay.addEventListener("click", (e) => {
 
         document.getElementById('popup').style.display = 'flex';
 
-        let donateAmt = Number(document.getElementById('donate').value.trim());
-
-          
+        let donateAmt = Number(document.getElementById('donate').value.trim());          
           if(donateAmt > 10000){
             donateAmt = 10000
           }
-
-        
          
-        let passValue;
-        if(noPeople == 1){
-          passValue = 5000*0;
-        } else if(noPeople == 2){
-          passValue = 7500*0;
-        } else {
-          passValue = 0
-        }
+        // let passValue;
+        // if(noPeople == 1){
+        //   passValue = 5000*0;
+        // } else if(noPeople == 2){
+        //   passValue = 7500*0;
+        // } else {
+        //   passValue = 0
+        // }
+
+        let passValue = 1;
 
 
-        const totalValue = passValue*0 + donateAmt;
-        const taxValue = 18*totalValue/100;
+
+        const totalValue = passValue + donateAmt;
+        const taxValue = 5*totalValue/100;
         const payPrice = totalValue + taxValue;
 
 
@@ -346,29 +339,72 @@ overlay.addEventListener("click", (e) => {
           }
          
 
-      let passValue;
-        if(noPeople == 1){
-          passValue = 5000*0;
-        } else if(noPeople == 2){
-          passValue = 7500*0;
-        } else {
-          passValue = 0
-        }
+      let passValue = 1;
+      //   if(noPeople == 1){
+      //     passValue = 5000*0;
+      //   } else if(noPeople == 2){
+      //     passValue = 7500*0;
+      //   } else {
+      //     passValue = 0
+      //   }
 
         const passDonateValue = passValue + donateAmt;
-        const payValue = 18*passDonateValue/100;
+        const payValue = 5*passDonateValue/100;
         const totalPayPrice = passDonateValue + payValue;
-
 
       const formData = { name, phone, email, address, city, adhaar, noPeople, donateAmt, someone, support,passValue, donateAmt, totalPayPrice };
       console.log("FORM DATA:", formData);
 
+      // if(totalPayPrice == 0){
+      //   console.log("Zero Amount User pass Generated....")
+        
+      //   try {
+
+      //     const zeroPayPass = await fetch(`${BACKEND_URL_OF_INDEX}/no-payment-pass`, 
+      //                                     {
+      //                                       method: 'POST',
+      //                                       headers: { 'Content-Type': 'application/json' },
+      //                                       body: JSON.stringify({formData})                 
+      //                                     }
+      //     )
+
+      //     const result = await zeroPayPass.json();
+      //     const {data} = result;
           
+      //     console.log("No Pay Pass API Completed data is below")
+      //     console.log(result)
+
+      //     if (result.status === 'success') {
+      //               console.log("Verification successfully...")
+      //               localStorage.setItem('no-people', data.how_many_people)
+      //               localStorage.setItem('city', data.city)
+      //               localStorage.setItem('phone', data.user_number)
+      //               localStorage.setItem('email', data.user_email)
+      //               localStorage.setItem('name', data.user_name)
+      //               localStorage.setItem('serialNo', data.serialNo)
+      //               localStorage.setItem('qr-code', data.qr_code)
+      //               localStorage.setItem('userSerial',data.bookId)
+
+      //               window.location.href = 'success.html';
+
+      //           } else {
+      //               alert("Verification failed....")
+      //               console.log("Verification failed....")
+      //           }
+
+
+          
+      //   } catch (error) {
+      //     console.log("Something is Error :-> ", error); 
+      //   }
+
+      // } else {
+
         async function initiatePayment() {
 
             try {
                 // 1. Call Backend to Create Order
-                const response = await fetch(`${BACKEND_URL}/create-order`, 
+                const response = await fetch(`${BACKEND_URL_OF_INDEX}/create-order`, 
                                               {
                                                 method: 'POST',
                                                 headers: { 'Content-Type': 'application/json' }, 
@@ -391,7 +427,7 @@ overlay.addEventListener("click", (e) => {
                     amount: order.amount, 
                     currency: order.currency,
                     name: "Jaipuriya",
-                    description: "Reistration for Gala Re-union 21 Batch Event",
+                    description: "Reistration for Ultimate Jaipuria Re-union 21 Batch Event",
                     image: "https://cdn.iconscout.com/icon/free/png-256/razorpay-1649771-1399875.png",
                     order_id: order.id, // THE CRITICAL PART: Link frontend to backend order
                     
@@ -430,9 +466,7 @@ overlay.addEventListener("click", (e) => {
             }
         }
 
-
          initiatePayment()
-
         }
 
 
@@ -449,7 +483,7 @@ overlay.addEventListener("click", (e) => {
         async function verifyPayment(paymentDetails, formData) {
 
             try {
-                const response = await fetch(`${BACKEND_URL}/verify-payment`, {
+                const response = await fetch(`${BACKEND_URL_OF_INDEX}/verify-payment`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({paymentDetails, formData})
@@ -465,7 +499,9 @@ overlay.addEventListener("click", (e) => {
                     localStorage.setItem('phone', formData.phone)
                     localStorage.setItem('email', formData.email)
                     localStorage.setItem('name', formData.name)
+                    localStorage.setItem('serialNo', result.data.serialNo)
                     localStorage.setItem('qr-code', result.data.qr_code )
+                    localStorage.setItem('userSerial',result.data.bookId)
 
                     window.location.href = 'success.html';
 

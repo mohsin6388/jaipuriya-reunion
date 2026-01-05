@@ -112,7 +112,7 @@ body{
   display:flex;align-items:center;justify-content:center;font-weight:800;color:#051426;font-size:0.85rem;
 }
 .event-info{flex:1}
-.event-title{font-family: 'Orbitron', sans-serif; font-size:1.6rem; font-weight: 600; margin:0;text-transform:uppercase;line-height:1}
+.event-title{font-family: 'Orbitron', sans-serif; font-size:1.3rem; font-weight: 600; margin:0;text-transform:uppercase;line-height:1}
 .tagline{margin-top:10px;color:rgba(230,238,248,0.8);font-weight:600;font-size:0.9rem}
 
 .details-grid{
@@ -207,7 +207,7 @@ body{
 }
 @media (max-width:420px){
   .header h1{font-size:0.98rem}
-  .event-title{font-size:1.15rem}
+  .event-title{font-size:1rem}
   .details-grid{grid-template-columns:1fr}
   .event-badge{width:56px;height:56px}
 }
@@ -244,55 +244,52 @@ body{
 
 <div class="page-container">
 
-
-    <div id="checkVisible">
-
-    
-    <!-- <div class="pay-success">
-      <div style="width: 60px; height: 60px;">
-      <img src="img/payment-tick-remove.png" style="width: 100%; height: 100%;" alt="">
-      </div>
-
-      <div class="header">
-      <h1>Thankyou For Payment.</h1>
-      <h1>Your pass is ready</h1>
-      </div>
-    </div> -->
-
-    </div>
-
-
-
     <div class="ticket-wrap">
 
       <div class="ticket" role="article">
         <div class="ticket-main">
           <div class="title-row">
-            <!-- <div class="event-badge">VIP</div> -->
-            <div class="event-info">
-              <div class="event-title">Gala Re-union Pass</div>
-              <div class="tagline">Official Batch 2001 · March 28, 2026</div>
+            <div style="display: flex; align-items: start; justify-content: start; gap: 50px;">
+              <div class="event-info" style="padding-top: 10px;">
+                  <div class="event-title">Ultimate Jaipurian 
+                              <br>
+                              <div style="padding-top: 10px;">Reunion Pass </div>
+                  </div>
+                 <div class="tagline">Official Batch 2001 · March 28, 2026</div>
+              </div>
+              <div style="height: 90px; width: 90px;">
+                <img src="img/bg-logo.png" alt="No Img" style="height: 100%; width: 100%;">
+              </div>
             </div>
           </div>
 
-          <div class="details-grid">
-            <div class="detail">
-              <div class="label">DATE</div><div id="pass-name" class="value">March 28, 2026</div></div>
-            <div class="detail"><div class="label">TIME</div><div class="value">7:30 PM Onwards</div></div>
-           
+          <div>Serial No. <span id="serial-no" style="color: rgb(180, 178, 178);"></span>-<span id="user-serial" style="color: rgb(180, 178, 178);"></span></span></div>
+
+          <!-- <div class="details-grid">         
+          </div> -->
+
+           <div class="detail">
+              <div class="label">DATE</div>
+              <div id="pass-name" class="value">March 28, 2026</div>
+           </div>  
+
+          <div class="detail">
+              <div class="label">TIME</div>
+              <div class="value">Lunch: 12:00 to 3:00 PM</div>
+              <div class="value">Dinner: 8:00 PM Onwards</div>
           </div>
 
 
 
                 <div class="detail"><div class="label">VENUE</div>
-                                                    <div class="value">Cranberry Lawn, <br> <p style="padding: 6px 0;">Mainawati Marg Kanpur, U.P 208017</p>
+                                                    <div class="value">Cranberry Lawn, <br> <p style="padding: 6px 0;">Mainawati Marg, Kanpur, U.P 208017</p>
                                                       <!-- <br>Uttar Pradesh 208017 -->
                                                     </div>
                 </div>
 
 
           <div style="margin: auto;" >
-              <h1 id="name-local">Mohammad Mohsin</h1>
+              <h1 id="name-local">XXXXX XXXXX</h1>
           </div>
 
           <div class="qr-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
@@ -303,8 +300,8 @@ body{
             <div class="details-grid"> 
               <div class="detail"><div class="label">No. Of People</div><div id="noPeople-local" class="value">X</div>
             </div>
-            <div class="detail"><div class="label">City</div><div id="city-local" class="value">Kanpur</div></div>
-            <div class="detail"><div class="label">Phone Number</div><div id="phone-local" class="value">6388XXXXXXX</div></div>
+            <div class="detail"><div class="label">City</div><div id="city-local" class="value">XXXXX</div></div>
+            <div class="detail"><div class="label">Phone Number</div><div id="phone-local" class="value">XXXXXXXXXX</div></div>
             <div class="detail"><div class="label">Email</div><div id="email-local" class="value"></div></div>
             
           </div>
@@ -351,14 +348,8 @@ body{
 
 <script>
 
-
-const checkVisible = document.getElementById('checkVisible')
-
-     if(localStorage.getItem('fromLogin')){
-       checkVisible.style.display = 'none' 
-     } else {
-       checkVisible.style.display = 'flex'
-     }
+         const BACKEND_URL_OF_SUCCESS = 'https://api.ultimatejaipurians.in';  
+        // const BACKEND_URL_OF_SUCCESS = 'http://localhost:8000' 
 
 
 
@@ -369,14 +360,15 @@ const checkVisible = document.getElementById('checkVisible')
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  const phoneNumber = localStorage.getItem('phone') 
-  const noPeople = localStorage.getItem('no-people') 
 
-  document.getElementById('phone-local').textContent = phoneNumber
-  document.getElementById('noPeople-local').textContent = noPeople
+  document.getElementById('phone-local').textContent = localStorage.getItem('phone')
+  document.getElementById('noPeople-local').textContent = localStorage.getItem('no-people') 
   document.getElementById('city-local').textContent = localStorage.getItem('city')  
   document.getElementById('email-local').textContent = localStorage.getItem('email')
   document.getElementById('name-local').textContent = localStorage.getItem('name')
+  document.getElementById('serial-no').textContent = localStorage.getItem('serialNo')
+  document.getElementById('user-serial').textContent = localStorage.getItem('userSerial')
+  
 
   }
 )     
@@ -508,44 +500,42 @@ async function downloadTicketClicked() {
 
 // Auto-send on page load (upload only, no download)
 
-if(!localStorage.getItem('fromLogin')){
-  window.addEventListener('load', () => {
-      setTimeout(sendEmailPDF, 200);
-      }); 
-  }
+// if(!localStorage.getItem('fromLogin')){
+//   window.addEventListener('load', () => {
+//       setTimeout(sendEmailPDF, 200);
+//       }); 
+//   }
  
 
 
-async function sendEmailPDF() {
+// async function sendEmailPDF() {
 
-  const emailReceiver = localStorage.getItem('email')
+//   const emailReceiver = localStorage.getItem('email')
 
-  try {
-    const pdfBlob = await generatePdfBlobFromNode();
-    const file = new File([pdfBlob], `ticket-${new Date().toISOString().slice(0,10)}.pdf`, { type: 'application/pdf' });
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('to', emailReceiver);
-    formData.append('subject', 'Your Event Ticket');
-    formData.append('text', 'Please find your ticket attached.');
+//   try {
+//     const pdfBlob = await generatePdfBlobFromNode();
+//     const file = new File([pdfBlob], `ticket-${new Date().toISOString().slice(0,10)}.pdf`, { type: 'application/pdf' });
+//     const formData = new FormData();
+//     formData.append('file', file);
+//     formData.append('to', emailReceiver);
+//     formData.append('subject', 'Your Event Ticket');
+//     formData.append('text', 'Please find your ticket attached.');
 
-    const resp = await fetch('https://api.ultimatejaipurians.in/api/upload-pdf', {
-      
-      method: 'POST',
-      body: formData
-     
-    });
+//     const resp = await fetch(`${BACKEND_URL_OF_SUCCESS}/api/upload-pdf`, {
+//       method: 'POST',
+//       body: formData
+//     });
 
-    if (!resp.ok) {
-      const json = await resp.json().catch(()=>({}));
-      console.error('Upload failed', json);
-    } else {
-      console.log('Uploaded & emailed successfully');
-    }
-  } catch (err) {
-    console.error('sendEmailPDF error:', err);
-  }
-}
+//     if (!resp.ok) {
+//       const json = await resp.json().catch(()=>({}));
+//       console.error('Upload failed', json);
+//     } else {
+//       console.log('Uploaded & emailed successfully');
+//     }
+//   } catch (err) {
+//     console.error('sendEmailPDF error:', err);
+//   }
+// }
 
 
 
