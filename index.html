@@ -447,14 +447,17 @@ nav.site-nav { z-index: 100;}
     }
 
     .cards {
-      display:grid;
+      display:flex;
+      align-items: center;
+      justify-content: center;
       gap:20px;
       grid-template-columns:1fr;
-      max-width:1100px;
+      max-width:1000px;
       margin: 0 auto;
     }
 
     .card {
+      width: 40%;
       padding:28px;
       border-radius:20px;
       text-align:center;
@@ -462,10 +465,10 @@ nav.site-nav { z-index: 100;}
       border-top:4px solid rgba(255,255,255,0.03);
     }
 
-    .card:hover { transform: translateY(-8px); }
+    .card:hover { transform: translateY(-10px); }
 
     .card .icon-wrap {
-      width:64px; height:64px;
+      width:94px; height:64px;
       border-radius:50%;
       display:inline-flex;
       align-items:center;
@@ -474,10 +477,20 @@ nav.site-nav { z-index: 100;}
       opacity: .95;
     }
 
-    .card .h3 { font-size:18px; font-weight:700; margin-bottom:8px; }
+    .card .h3 { 
+      font-size:18px; 
+      font-weight:700; 
+      margin-bottom:8px; }
 
-    .muted { color: #cbd5e1; }
-    .sub-muted { color: #9ca3af; font-size:13px; margin-top:8px; }
+    .muted { 
+      color: #cbd5e1;
+      padding: 0;
+     }
+
+    .sub-muted { 
+      color: #9ca3af; 
+      font-size:13px; 
+      margin-top:0px; }
 
     /* -------------------------
        Registration form
@@ -673,7 +686,7 @@ nav.site-nav { z-index: 100;}
     @media(min-width:768px){
       .nav-links { display:flex; }
       .menu-btn { display:none; }
-      .cards { grid-template-columns: repeat(3,1fr); }
+      /* .cards { flex-direction: column; } */
       .hero h1 { font-size:84px; }
       .hero p.lead { font-size:20px; }
       #mobile-menu { display:none !important; }
@@ -686,8 +699,9 @@ nav.site-nav { z-index: 100;}
       .btn-primary { display:none; }
       .brand .title { font-size:20px; }
       .hero h1 { font-size:44px; }
-      .cards { grid-template-columns:1fr; }
+      .cards { flex-direction: column; }
       .margin-up{margin: 0 auto 80px auto}
+      .card{ width: 80%;}
 
     }
 
@@ -788,20 +802,20 @@ nav.site-nav { z-index: 100;}
 
 #eventPopupBox {
   background: var(--bg, #1c1c1c);
-  padding: 24px;
+  padding: 14px;
   border-radius: 14px;
   width: 420px;
   max-width: 90%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   text-align: center;
   border-top: 4px solid var(--accent-purple);
   animation: popupScale .25s ease;
 }
 
 #eventPopupBox h3{
-  font-size: 50px;
+  font-size: 80px;
 }
 
 @media(max-width: 786px){
@@ -1094,44 +1108,55 @@ nav.site-nav { z-index: 100;}
       <div class="cards">
 
         <div class="card glass-panel eventPopupTrigger" 
-               data-title="When?"
+               data-title="Lunch"
                data-date="Saturday, 28 March 2026"
-               data-time="Doors open at 7:30 PM"
-               data-icon="calendar-days"
+               data-time="12 to 3PM & SARJS"
+               data-icon="img/lunch-break.png"
+               data-dress ="White Shirt"
                style="border-top-color:var(--accent-purple);">
           
           
-          <div class="icon-wrap" style="background: rgba(124,58,237,0.12); color:var(--accent-purple);">
-            <i data-lucide="calendar-days" style="width:24px;height:24px;"></i>
+          <div class="icon-wrap" style="background: rgba(255, 255, 255, 0.877); color:var(--accent-purple);">
+             <img src="img/lunch-break.png" style="width:44px;height:44px;" alt="">
           </div>
-          <div class="h3">When?</div>
+          <div class="h3">Lunch</div>
           <div class="muted">Saturday, 28 march 2026</div>
-          <div class="sub-muted">Doors open at 7:30 PM</div>
+           <div style="padding-top: 10px;">Venue & Time</div>
+          <!-- <div class="sub-muted">12 to 3PM & SARJS</div>
+          <div class="">Dress Code</div>
+          <div class="sub-muted">White Shirt</div> -->
+          <button type="button" style="cursor: pointer; margin-top: 20px; padding: 8px 15px; border: none; border-radius: 20px; color: white; background: var(--accent-purple);">Know More</button>
         </div>
 
 
 
 
         <div class="card glass-panel eventPopupTrigger" 
-              data-title="Where?"
-              data-date="CRANBERRY LAWN, Mainawati Marg"
-              data-time="Kanpur, Uttar Pradesh 208017"
-              data-icon="map-pin"
-             style="border-top-color:var(--accent-cyan);">
+              data-title="Dinner"
+              data-date="Saturday, 28 March 2026"
+              data-time="8 PM Onward & CRANBERRY LAWN, Mainawati Marg"
+              data-icon="img/dinner.png"
+              data-dress ="Party Dress"
+             style="border-top-color:var(--accent-pink);">
           
           
-          <div class="icon-wrap" style="background: rgba(0,243,255,0.08); color:var(--accent-cyan);">
-            <i data-lucide="map-pin" style="width:24px;height:24px;"></i>
+          <div class="icon-wrap" style="background: rgba(255, 255, 255, 0.877); color:var(--accent-cyan);">
+             <img src="img/dinner.png" style="width:44px;height:44px;" alt="">
           </div>
-          <div class="h3">Where?</div>
-          <div class="muted">CRANBERRY LAWN, Mainawati Marg</div>
-          <div class="sub-muted">Kanpur, Uttar Pradesh 208017</div>
+          <div class="h3">Dinner</div>
+          <div class="muted">Saturday, 28 march 2026</div>
+          <div style="padding-top: 10px;">Venue & Time</div>
+          <!-- <div class="muted">8 PM Onward & CRANBERRY LAWN, Mainawati Marg</div>
+          <div class="">Dress Code</div>
+          <div class="sub-muted">Party Dress</div>
+          <div class="sub-muted"></div> -->
+          <button type="button" style="cursor: pointer; margin-top: 20px; padding: 8px 15px; border: none; border-radius: 20px; color: white; background: var(--accent-pink);">Know More</button>
           </div>
 
 
 
 
-        <div class="card glass-panel eventPopupTrigger" 
+        <!-- <div class="card glass-panel eventPopupTrigger" 
              style="border-top-color:var(--accent-pink);"
               data-title="Dress Code"
               data-date="Party Dress"
@@ -1144,7 +1169,7 @@ nav.site-nav { z-index: 100;}
           <div class="h3">Dress Code</div>
           <div class="muted">Party Dress</div>
           <div class="sub-muted">Dress to glow</div>
-        </div>
+        </div> -->
 
       </div>
 
@@ -1161,13 +1186,24 @@ nav.site-nav { z-index: 100;}
 <div id="eventPopupOverlay">
   <div id="eventPopupBox">
 
-    <div class="icon-wrap" style="background: rgba(124,58,237,0.12); color:var(--accent-purple);">
-      <i id="popupIcon" style="width:24px;height:24px;"></i>
+    <div class="icon-wrap" style="background: rgba(124,58,237,0.12); color:var(--accent-purple); display: flex; align-items: center; justify-content: center;">
+      <div style="background-color: yellow; height: 40px; width: 40px; display: flex; justify-content: center; align-items: center; border-radius: 50%;">
+        <img id="popupIcon" alt="" style="height: 70%; width: 70%;">
+      </div>
     </div>
 
     <div class="h3" id="popupTitle"></div>
     <div class="muted" id="popupDate"></div>
-    <div class="sub-muted" id="popupTime"></div>
+          
+          <div>
+            <div style="margin-bottom: 2px;">Venue & Time</div>
+            <div class="sub-muted" id="popupTime"></div>
+          </div>
+          
+          <div>
+            <div style="margin-bottom: 2px;">Dress Code</div>
+            <div class="sub-muted" id="dress-code"></div>
+          </div>
 
     <a id="openMap">Open To Map <i data-lucide="arrow-up-right"></i></a>
 
