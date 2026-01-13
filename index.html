@@ -1178,8 +1178,7 @@ nav.site-nav { z-index: 100;}
           
           <div>
             <div style="margin-bottom: 2px; font-size: 23px;">Venue</div>
-            <!-- <div style="margin-top: 5px; color: #cbd5e1; font-size: 14px;" class="sub-muted" id="popupTime"></div> -->
-            <div style="margin-top: 5px; color: #cbd5e1; font-size: 14px;" class="sub-muted" id="address"></div>
+            <div style="margin-top: 5px; color: #cbd5e1; font-size: 14px;" class="sub-muted" id="event-address"></div>
           </div>
           
           <div>
@@ -1346,9 +1345,11 @@ nav.site-nav { z-index: 100;}
             <div class="input-wrap">
               <span class="input-icon"><i data-lucide="file-user" style="width:16px;height:16px;color:#9ca3af;"></i></span>
               <input id="adhaar" type="text" class="form-input" placeholder="Adhaar/PAN Card" required>
-              <span class="info-icon" 
-                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;" 
-                    title="Your username must be unique and contain at least 6 characters.">ⓘ</span>
+              <span class="info-icon" id="info"
+                    style="position: absolute; right: 10px; top: 60%; transform: translateY(-50%); cursor: pointer;" 
+                    title="The requirement to provide Permanent Account Number (PAN) and Aadhaar for various financial transactions and tax compliance is mandated by the Income Tax Act, 1961, specifically under Section 139AA.">
+                  <img src="img/i-icon.png" style="height: 20px; width: 20px;">
+              </span>
             </div>
            </div>
 
@@ -1646,9 +1647,10 @@ nav.site-nav { z-index: 100;}
       <div style="margin-top: auto;">
         <span> © 2026 Ultimate Jaipurians Club.</span>
          <div style="text-align: end;" >
-         <a href="about.html">About Us</a>
-         <a href="privacy-policy.html">Privacy Policy</a>
-         <a href="terms-condition.html">Terms & Conditions</a>
+         <a href="about.html" style="font-size: small;">About Us</a>
+         <a href="privacy-policy.html" style="font-size: small;">Privacy Policy</a>
+         <a href="terms-condition.html" style="font-size: small;">Terms & Conditions</a>
+         <a href="refund-policy.html" style="font-size: small;">Refund Policy</a>
         </div>
        </div>
 

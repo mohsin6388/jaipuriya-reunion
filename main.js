@@ -1,8 +1,8 @@
-const KEY_ID = "rzp_live_RxuaHcTxqVVRbY";
-const BACKEND_URL_OF_INDEX = "https://api.ultimatejaipurians.in";
+// const KEY_ID = "rzp_live_RxuaHcTxqVVRbY";
+// const BACKEND_URL_OF_INDEX = "https://api.ultimatejaipurians.in";
 
-// const KEY_ID = "rzp_test_RmjDo8lq7GTEsp";
-//const BACKEND_URL_OF_INDEX = "http://localhost:8000";
+const KEY_ID = "rzp_test_RmjDo8lq7GTEsp";
+const BACKEND_URL_OF_INDEX = "http://localhost:8000";
 
 //-------------------------------
 //       Venue Cards PopUp
@@ -15,7 +15,7 @@ const closeBtn = document.getElementById("eventPopupClose");
 const titleEl = document.getElementById("popupTitle");
 const dateEl = document.getElementById("popupDate");
 const timeEl = document.getElementById("popupTime");
-const address = document.getElementById("address");
+const address = document.getElementById("event-address");
 const popupIcon = document.getElementById("popupIcon");
 const dress = document.getElementById("dress-code");
 
@@ -130,16 +130,13 @@ input.forEach((el) => {
 //----------------------------------------------
 
 const donateAmount = document.getElementById("donate");
-const minimumDonate = document.getElementById("minDonate");
+// const minimumDonate = document.getElementById("minDonate");
 const maximumDonate = document.getElementById("maxDonate");
 
 donateAmount.addEventListener("change", function () {
   let checkAmount = this.value;
 
-  if (checkAmount < 500) {
-    minimumDonate.style.display = "block";
-  } else if (checkAmount >= 500 && checkAmount <= 10000) {
-    minimumDonate.style.display = "none";
+  if (checkAmount >= 0 && checkAmount <= 10000) {
     maximumDonate.style.display = "none";
   } else if (checkAmount > 10000) {
     maximumDonate.style.display = "block";
@@ -207,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const passValue = getPassPrice(attendees);
 
-    const grand = passValue * 0 + donateAmt;
+    const grand = passValue + donateAmt;
     grandTotalEl.textContent = grand.toLocaleString(); // formatted number
   }
 
@@ -232,7 +229,7 @@ openPop.addEventListener("click", function (e) {
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("number").value.trim();
   const email = document.getElementById("email").value.trim();
-  const address = document.getElementById("address").value.trim();
+  const address = document.getElementById("address").value;
   const city = document.getElementById("city").value.trim();
   const adhaar = document.getElementById("adhaar").value.trim();
   const noPeople = document.getElementById("attend").textContent;
@@ -240,6 +237,15 @@ openPop.addEventListener("click", function (e) {
 
   const someone = document.querySelector(".someone-check:checked")?.value || "";
   const support = document.querySelector(".support-check:checked")?.value || "";
+
+  console.log({
+    name: name,
+    phone: phone,
+    email: email,
+    address: address,
+    city: city,
+    adhaar: adhaar,
+  });
 
   if (
     !name ||
@@ -343,69 +349,83 @@ async function paymentRazorpay() {
   console.log("FORM DATA:", formData);
 
   async function initiatePayment() {
-    try {
-      // 1. Call Backend to Create Order
-      const response = await fetch(`${BACKEND_URL_OF_INDEX}/create-order`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: totalPayPrice * 100,
-          currency: "INR",
-          receipt: `rcpt_${Date.now()}`,
-        }),
-      });
-      const order = await response.json();
+    // 1. Call Backend to Create Order
+    const response = await fetch(`${BACKEND_URL_OF_INDEX}/paytm/create-order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: totalPayPrice }),
+    });
 
-      if (!order.id) {
-        throw new Error("Order creation failed");
-      }
+    const data = await response.json();
+    // console.log(data);
 
-      // 2. Configure Razorpay Options
-      const options = {
-        key: KEY_ID,
-        amount: order.amount,
-        currency: order.currency,
-        name: "Jaipuriya",
-        description:
-          "Reistration for Ultimate Jaipuria Re-union 21 Batch Event",
-        image:
-          "https://cdn.iconscout.com/icon/free/png-256/razorpay-1649771-1399875.png",
-        order_id: order.id, // THE CRITICAL PART: Link frontend to backend order
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action =
+      "https://securegw-stage.paytm.in/theia/api/v1/showPaymentPage?mid=zALFvb06861381677388&orderId=" +
+      data.paytmParams.orderId;
 
-        // Handler for Success
-        handler: async function (response) {
-          // 3. Verify Payment on Backend
-          verifyPayment(response, formData);
-        },
-        prefill: {
-          name: formData.name,
-          contact: formData.phone,
-          email: formData.email,
-        },
-        theme: {
-          color: "#2563EB", // Blue-600 matches Tailwind
-        },
-      };
+    form.innerHTML = `
+      <input type="hidden" name="mid" value="${data.paytmParams.mid}" />
+      <input type="hidden" name="orderId" value="${data.paytmParams.orderId}" />
+      <input type="hidden" name="txnToken" value="${data.checksum}" />
+    
+    `;
 
-      // 4. Open Checkout
-      const rzp1 = new Razorpay(options);
-      button.classList.remove("loading");
-
-      rzp1.on("payment.failed", function (response) {
-        alert("Payment Failed: " + response.error.description);
-        resetBtn();
-      });
-
-      rzp1.open();
-      resetBtn(); // Reset button immediately after modal opens
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong. Check console.");
-      resetBtn();
-    }
+    document.body.appendChild(form);
+    form.submit();
   }
 
   initiatePayment();
+
+  //     if (!order.id) {
+  //       throw new Error("Order creation failed");
+  //     }
+
+  //     // 2. Configure Razorpay Options
+  //     const options = {
+  //       key: KEY_ID,
+  //       amount: order.amount,
+  //       currency: order.currency,
+  //       name: "Jaipuriya",
+  //       description:
+  //         "Reistration for Ultimate Jaipuria Re-union 21 Batch Event",
+  //       image:
+  //         "https://cdn.iconscout.com/icon/free/png-256/razorpay-1649771-1399875.png",
+  //       order_id: order.id, // THE CRITICAL PART: Link frontend to backend order
+
+  //       // Handler for Success
+  //       handler: async function (response) {
+  //         // 3. Verify Payment on Backend
+  //         verifyPayment(response, formData);
+  //       },
+  //       prefill: {
+  //         name: formData.name,
+  //         contact: formData.phone,
+  //         email: formData.email,
+  //       },
+  //       theme: {
+  //         color: "#2563EB", // Blue-600 matches Tailwind
+  //       },
+  //     };
+
+  //     // 4. Open Checkout
+  //     const rzp1 = new Razorpay(options);
+  //     button.classList.remove("loading");
+
+  //     rzp1.on("payment.failed", function (response) {
+  //       alert("Payment Failed: " + response.error.description);
+  //       resetBtn();
+  //     });
+
+  //     rzp1.open();
+  //     resetBtn(); // Reset button immediately after modal opens
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert("Something went wrong. Check console.");
+  //     resetBtn();
+  //   }
+  // }
 }
 
 //-------------------------------------------------
@@ -441,12 +461,6 @@ async function verifyPayment(paymentDetails, formData) {
   } catch (error) {
     console.log("Something is error....");
   }
-}
-
-function resetBtn() {
-  // const btn = document.getElementById('pay-btn');
-  // btn.disabled = false;
-  // btn.innerHTML = `<span>Registor</span>`;
 }
 
 // Allow only one checkbox from a group
