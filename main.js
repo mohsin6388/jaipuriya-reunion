@@ -129,19 +129,18 @@ input.forEach((el) => {
 //            Donation Amount Valiation
 //----------------------------------------------
 
-const donateAmount = document.getElementById("donate");
-// const minimumDonate = document.getElementById("minDonate");
-const maximumDonate = document.getElementById("maxDonate");
+// const donateAmount = document.getElementById("donate")
+// const maximumDonate = document.getElementById("maxDonate");
 
-donateAmount.addEventListener("change", function () {
-  let checkAmount = this.value;
+// donateAmount.addEventListener("change", function () {
+//   let checkAmount = this.value;
 
-  if (checkAmount >= 0 && checkAmount <= 10000) {
-    maximumDonate.style.display = "none";
-  } else if (checkAmount > 10000) {
-    maximumDonate.style.display = "block";
-  }
-});
+//   if (checkAmount >= 0 && checkAmount <= 10000) {
+//     maximumDonate.style.display = "none";
+//   } else if (checkAmount > 10000) {
+//     maximumDonate.style.display = "block";
+//   }
+// });
 
 //----------------------------------------------
 //             Grand Total
@@ -150,7 +149,7 @@ donateAmount.addEventListener("change", function () {
 document.addEventListener("DOMContentLoaded", () => {
   // Elements
   const attendSpan = document.getElementById("attend");
-  const donateInput = document.getElementById("donate");
+  // const donateInput = document.getElementById("donate");
   const grandTotalEl = document.getElementById("grandTotal");
 
   // The two checkboxes (values: "stag" and "noStag")
@@ -162,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Basic existence check
   if (
     !attendSpan ||
-    !donateInput ||
+    // !donateInput ||
     !grandTotalEl ||
     !stagCheckbox ||
     !plusOneCheckbox
@@ -195,23 +194,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const attendees = getAttendeesCount();
     attendSpan.textContent = attendees;
 
-    let donateAmt =
-      Number(String(donateInput.value).replace(/[^0-9.-]/g, "")) || 0;
+    // let donateAmt =
+    //   Number(String(donateInput.value).replace(/[^0-9.-]/g, "")) || 0;
 
-    if (donateAmt > 10000) {
-      donateAmt = 10000;
-    }
+    // if (donateAmt > 10000) {
+    //   donateAmt = 10000;
+    // }
 
     const passValue = getPassPrice(attendees);
 
-    const grand = passValue + donateAmt;
+    const grand = passValue;
+    // + donateAmt;
     grandTotalEl.textContent = grand.toLocaleString(); // formatted number
   }
 
   // wire events: changes to checkboxes or donation input update totals
   stagCheckbox.addEventListener("change", calculateAndRender);
   plusOneCheckbox.addEventListener("change", calculateAndRender);
-  donateInput.addEventListener("input", calculateAndRender);
+  // donateInput.addEventListener("input", calculateAndRender);
 
   // initial render
   calculateAndRender();
@@ -238,15 +238,6 @@ openPop.addEventListener("click", function (e) {
   const someone = document.querySelector(".someone-check:checked")?.value || "";
   const support = document.querySelector(".support-check:checked")?.value || "";
 
-  console.log({
-    name: name,
-    phone: phone,
-    email: email,
-    address: address,
-    city: city,
-    adhaar: adhaar,
-  });
-
   if (
     !name ||
     !phone ||
@@ -262,10 +253,10 @@ openPop.addEventListener("click", function (e) {
   } else {
     document.getElementById("popup").style.display = "flex";
 
-    let donateAmt = Number(document.getElementById("donate").value.trim());
-    if (donateAmt > 10000) {
-      donateAmt = 10000;
-    }
+    // let donateAmt = Number(document.getElementById("donate").value.trim());
+    // if (donateAmt > 10000) {
+    //   donateAmt = 10000;
+    // }
 
     let passValue;
     if (noPeople == 1) {
@@ -278,12 +269,13 @@ openPop.addEventListener("click", function (e) {
 
     // let passValue = 1;
 
-    const totalValue = passValue + donateAmt;
+    const totalValue = passValue;
+    // + donateAmt;
     const taxValue = (5 * totalValue) / 100;
     const payPrice = totalValue + taxValue;
 
     document.getElementById("totalPass").innerText = `₹  ${passValue}`;
-    document.getElementById("totalDonate").innerText = `₹  ${donateAmt}`;
+    // document.getElementById("totalDonate").innerText = `₹  ${donateAmt}`;
     document.getElementById("totalTax").innerText = `₹  ${taxValue}`;
     document.getElementById("totalPay").innerText = `₹ ${payPrice}`;
   }
@@ -309,14 +301,14 @@ async function paymentRazorpay() {
   const adhaar = document.getElementById("adhaar").value.trim();
 
   const noPeople = Number(document.getElementById("attend").textContent);
-  let donateAmt = Number(document.getElementById("donate").value.trim());
+  // let donateAmt = Number(document.getElementById("donate").value.trim());
 
   const someone = document.querySelector(".someone-check:checked")?.value || "";
   const support = document.querySelector(".support-check:checked")?.value || "";
 
-  if (donateAmt > 10000) {
-    donateAmt = 10000;
-  }
+  // if (donateAmt > 10000) {
+  //   donateAmt = 10000;
+  // }
 
   let passValue;
   if (noPeople == 1) {
@@ -327,7 +319,8 @@ async function paymentRazorpay() {
     passValue = 0;
   }
 
-  const passDonateValue = passValue + donateAmt;
+  const passDonateValue = passValue;
+  // + donateAmt;
   const payValue = (5 * passDonateValue) / 100;
   const totalPayPrice = passDonateValue + payValue;
 
@@ -339,11 +332,11 @@ async function paymentRazorpay() {
     city,
     adhaar,
     noPeople,
-    donateAmt,
+    // donateAmt,
     someone,
     support,
     passValue,
-    donateAmt,
+    // donateAmt,
     totalPayPrice,
   };
   console.log("FORM DATA:", formData);
