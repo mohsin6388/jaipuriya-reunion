@@ -7,9 +7,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
     <title>Reunion Event 26</title>
     <!-- Razorpay SDK -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
+    <!-- <script src="https://checkout.razorpay.com/v1/checkout.js" async></script> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" async/>
     <link rel="preconnect" href="https://fonts.gstatic.com" async crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet" async>
@@ -1517,9 +1518,6 @@ nav.site-nav { z-index: 100;}
                     <span id="pay-btn" class="btn-text">Proceed to Payment</span>
                     <span class="loader"></span>
                   </button>
-
-
-            <!-- <button onclick="paymentRazorpay()" class="pay-button">Proceed to Payment</button> -->
         </div>
     </div>
 	    <!-- </div> -->
@@ -1660,6 +1658,9 @@ nav.site-nav { z-index: 100;}
 
      <script src="main.js" defer></script>
      <script src="carousel.js" defer></script>
+      <script type="application/javascript" src="https://secure.paytmpayments.com/merchantpgpui/checkoutjs/merchants/gfWLtr04448499190835.js" onload="onScriptLoad();" crossorigin="anonymous"></script>
+
+
 
     
     

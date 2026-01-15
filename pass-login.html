@@ -302,7 +302,7 @@
 
     <script>
       const BACKEND_URL_OF_PASS_LOGIN = "https://api.ultimatejaipurians.in";
-      // const BACKEND_URL_OF_PASS_LOGIN = "http://localhost:8000";
+      //const BACKEND_URL_OF_PASS_LOGIN = "http://localhost:8000";
 
       const button = document.getElementById("login");
 
@@ -323,20 +323,22 @@
         });
 
         const result = await response.json();
-        const { status, formData } = result;
-        console.log(formData);
+        const { status, data } = result;
+        console.log(data);
 
         if (status === true) {
-          localStorage.setItem("no-people", formData.how_many_people);
-          localStorage.setItem("city", formData.city);
-          localStorage.setItem("phone", formData.user_number);
-          localStorage.setItem("email", formData.user_email);
-          localStorage.setItem("name", formData.user_name);
-          localStorage.setItem("qr-code", formData.qr_code);
-          localStorage.setItem("serialNo", formData.serialNo);
-          localStorage.setItem("userSerial", formData.bookId);
-          localStorage.setItem("fromLogin", true);
-          window.location.href = "success.html";
+          const params = new URLSearchParams({
+            user_name: result.data.user_name,
+            user_number: result.data.user_number,
+            city: result.data.city,
+            serialNo: result.data.serialNo,
+            how_many_people: result.data.how_many_people,
+            user_email: result.data.user_email,
+            qr_code: result.data.qr_code,
+            bookId: result.data.bookId,
+          });
+
+          window.location.href = result.redirectUrl + "?" + params.toString();
         } else {
           console.log("Something Error.....");
         }

@@ -553,6 +553,28 @@
       //--------------------------------------
 
       document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+
+        const userData = {
+          user_name: params.get("user_name"),
+          user_number: params.get("user_number"),
+          city: params.get("city"),
+          serialNo: params.get("serialNo"),
+          how_many_people: params.get("how_many_people"),
+          user_email: params.get("user_email"),
+          qr_code: params.get("qr_code"),
+          bookId: params.get("bookId"),
+        };
+
+        localStorage.setItem("no-people", userData.how_many_people);
+        localStorage.setItem("city", userData.city);
+        localStorage.setItem("phone", userData.user_number);
+        localStorage.setItem("email", userData.user_email);
+        localStorage.setItem("name", userData.user_name);
+        localStorage.setItem("serialNo", userData.serialNo);
+        localStorage.setItem("qr-code", userData.qr_code);
+        localStorage.setItem("userSerial", userData.bookId);
+
         document.getElementById("phone-local").textContent =
           localStorage.getItem("phone");
         document.getElementById("noPeople-local").textContent =

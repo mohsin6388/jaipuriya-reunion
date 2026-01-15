@@ -1,8 +1,6 @@
-// const KEY_ID = "rzp_live_RxuaHcTxqVVRbY";
-// const BACKEND_URL_OF_INDEX = "https://api.ultimatejaipurians.in";
+const BACKEND_URL_OF_INDEX = "https://api.ultimatejaipurians.in";
 
-const KEY_ID = "rzp_test_RmjDo8lq7GTEsp";
-const BACKEND_URL_OF_INDEX = "http://localhost:8000";
+//const BACKEND_URL_OF_INDEX = "http://localhost:8000";
 
 //-------------------------------
 //       Venue Cards PopUp
@@ -274,10 +272,10 @@ openPop.addEventListener("click", function (e) {
     const taxValue = (5 * totalValue) / 100;
     const payPrice = totalValue + taxValue;
 
-    document.getElementById("totalPass").innerText = `₹  ${passValue}`;
+    document.getElementById("totalPass").innerText = "1"; //`₹  ${passValue}`;
     // document.getElementById("totalDonate").innerText = `₹  ${donateAmt}`;
-    document.getElementById("totalTax").innerText = `₹  ${taxValue}`;
-    document.getElementById("totalPay").innerText = `₹ ${payPrice}`;
+    document.getElementById("totalTax").innerText = "1"; // `₹  ${taxValue}`;
+    document.getElementById("totalPay").innerText = "2"; //`₹ ${payPrice}`;
   }
 });
 
@@ -339,121 +337,52 @@ async function paymentRazorpay() {
     // donateAmt,
     totalPayPrice,
   };
-  console.log("FORM DATA:", formData);
 
   async function initiatePayment() {
-    // 1. Call Backend to Create Order
     const response = await fetch(`${BACKEND_URL_OF_INDEX}/paytm/create-order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: totalPayPrice }),
+      body: JSON.stringify({ amount: totalPayPrice, formData: formData }),
     });
 
     const data = await response.json();
-    // console.log(data);
 
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action =
-      "https://securegw-stage.paytm.in/theia/api/v1/showPaymentPage?mid=zALFvb06861381677388&orderId=" +
-      data.paytmParams.orderId;
+    //----- use paytm docs code ----------------//
 
-    form.innerHTML = `
-      <input type="hidden" name="mid" value="${data.paytmParams.mid}" />
-      <input type="hidden" name="orderId" value="${data.paytmParams.orderId}" />
-      <input type="hidden" name="txnToken" value="${data.checksum}" />
-    
-    `;
+    async function onScriptLoad() {
+      var config = {
+        root: "",
+        flow: "DEFAULT",
+        data: {
+          orderId: data.orderId.toString() /* update order id */,
+          token: data.txnToken /* update token value */,
+          tokenType: "TXN_TOKEN",
+          amount: data.amount /* update amount */,
+        },
+        handler: {
+          notifyMerchant: function (eventName, data) {
+            console.log("notifyMerchant handler function called");
+            console.log("eventName => ", eventName);
+            console.log("data => ", data);
+          },
+        },
+      };
 
-    document.body.appendChild(form);
-    form.submit();
+      console.log(config);
+      console.log("Now Everything is working before opening window");
+
+      if (window.Paytm && window.Paytm.CheckoutJS) {
+        console.log("Paytm checkout window runing start");
+
+        await window.Paytm.CheckoutJS.init(config);
+        window.Paytm.CheckoutJS.invoke(); // MUST be inside click
+      }
+    }
+
+    onScriptLoad();
   }
 
   initiatePayment();
-
-  //     if (!order.id) {
-  //       throw new Error("Order creation failed");
-  //     }
-
-  //     // 2. Configure Razorpay Options
-  //     const options = {
-  //       key: KEY_ID,
-  //       amount: order.amount,
-  //       currency: order.currency,
-  //       name: "Jaipuriya",
-  //       description:
-  //         "Reistration for Ultimate Jaipuria Re-union 21 Batch Event",
-  //       image:
-  //         "https://cdn.iconscout.com/icon/free/png-256/razorpay-1649771-1399875.png",
-  //       order_id: order.id, // THE CRITICAL PART: Link frontend to backend order
-
-  //       // Handler for Success
-  //       handler: async function (response) {
-  //         // 3. Verify Payment on Backend
-  //         verifyPayment(response, formData);
-  //       },
-  //       prefill: {
-  //         name: formData.name,
-  //         contact: formData.phone,
-  //         email: formData.email,
-  //       },
-  //       theme: {
-  //         color: "#2563EB", // Blue-600 matches Tailwind
-  //       },
-  //     };
-
-  //     // 4. Open Checkout
-  //     const rzp1 = new Razorpay(options);
-  //     button.classList.remove("loading");
-
-  //     rzp1.on("payment.failed", function (response) {
-  //       alert("Payment Failed: " + response.error.description);
-  //       resetBtn();
-  //     });
-
-  //     rzp1.open();
-  //     resetBtn(); // Reset button immediately after modal opens
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("Something went wrong. Check console.");
-  //     resetBtn();
-  //   }
-  // }
-}
-
-//-------------------------------------------------
-//            Verify API Calling here
-//-------------------------------------------------
-
-async function verifyPayment(paymentDetails, formData) {
-  try {
-    const response = await fetch(`${BACKEND_URL_OF_INDEX}/verify-payment`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ paymentDetails, formData }),
-    });
-
-    const result = await response.json();
-    // console.log(result)
-
-    if (result.status === "success") {
-      console.log("Verification successfully...");
-      localStorage.setItem("no-people", formData.noPeople);
-      localStorage.setItem("city", formData.city);
-      localStorage.setItem("phone", formData.phone);
-      localStorage.setItem("email", formData.email);
-      localStorage.setItem("name", formData.name);
-      localStorage.setItem("serialNo", result.data.serialNo);
-      localStorage.setItem("qr-code", result.data.qr_code);
-      localStorage.setItem("userSerial", result.data.bookId);
-
-      window.location.href = "success.html";
-    } else {
-      console.log("Verification failed....");
-    }
-  } catch (error) {
-    console.log("Something is error....");
-  }
 }
 
 // Allow only one checkbox from a group
