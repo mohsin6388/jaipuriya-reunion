@@ -9,11 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
     <title>Reunion Event 26</title>
-    <!-- Razorpay SDK -->
-    <!-- <script src="https://checkout.razorpay.com/v1/checkout.js" async></script> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" async/>
     <link rel="preconnect" href="https://fonts.gstatic.com" async crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet" async>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <link rel="stylesheet" href="production-carousel-claude.css">
@@ -573,7 +572,12 @@ nav.site-nav { z-index: 100;}
 
 
     /* Checkbox group visual */
-    .checkbox-list { display:flex; align-items: start; gap:10px; padding-left: 0;}
+    .checkbox-list 
+    { display:flex; 
+      align-items: start; 
+      gap:10px; 
+      padding-left: 0;
+    }
     .checkbox-row { display:flex; align-items:center; gap:10px;}
     
 
@@ -963,6 +967,28 @@ nav.site-nav { z-index: 100;}
 
      </style>
 
+<style>
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: black;
+  color: #fff;
+  padding: 12px 18px;
+  margin: 0 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+</style>
 
 
 
@@ -1379,7 +1405,7 @@ nav.site-nav { z-index: 100;}
               </li>
               </div>
 
-            </ul>
+               </ul>
 
               </div>
 
@@ -1391,6 +1417,32 @@ nav.site-nav { z-index: 100;}
 
 
           <!-- donation part here -->
+
+  <ul class="checkbox-list spouse" >
+  <div style="display: flex; gap: 10px;">
+    <li class="checkbox-row">
+      <label class="round-check">
+        <input id="donateShow" type="checkbox" value="1000" class="donation-check">
+        <span class="circle">+Rs 1000</span>
+      </label>
+    </li>
+
+    <li class="checkbox-row">
+      <label class="round-check">
+        <input id="donateShow" type="checkbox" value="2500" class="donation-check">
+        <span class="circle">+Rs 2500</span>
+      </label>
+    </li>
+
+    <li class="checkbox-row">
+      <label class="round-check">
+        <input id="donateShow" type="checkbox" value="5000" class="donation-check">
+        <span class="circle">+Rs 5000</span>
+      </label>
+    </li>
+  </div>
+</ul>
+
 
           <!-- <div style="border-top: 1px solid rgba(255, 255, 255, 0.747); margin: 0 5px;"></div> -->
 
@@ -1455,10 +1507,17 @@ nav.site-nav { z-index: 100;}
 
       </div>
     </div>
-  </section>
+  </section> 
 
+   <!-- Pan Alert Box -->
+   <div id="panToast" class="toast">
+     The requirement to provide Permanent Account Number (PAN) and Aadhaar for various financial transactions and tax compliance is mandated by the Income Tax Act, 1961, specifically under Section 139AA.
+   </div>
 
-
+  <!-- Alert Box -->
+   <div id="toast" class="toast">
+  Thanking For Contributing Rs. <span> </span> <span id="toastAmount"></span> to Reunion Event
+</div>
 
   <!-- registeration confirm Popup  -->
 
@@ -1485,7 +1544,7 @@ nav.site-nav { z-index: 100;}
                 <div id="totalPass" class="item-amount">NA</div>
             </div>
 
-            <!-- <div class="billing-item">
+            <div class="billing-item">
                 <div class="item-label">
                     <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
@@ -1493,7 +1552,7 @@ nav.site-nav { z-index: 100;}
                     Donation
                 </div>
                 <div id="totalDonate" class="item-amount">NA</div>
-            </div> -->
+            </div>
 
             <div class="billing-item">
                 <div class="item-label">
@@ -1658,8 +1717,8 @@ nav.site-nav { z-index: 100;}
 
      <script src="main.js" defer></script>
      <script src="carousel.js" defer></script>
-      <script type="application/javascript" src="https://secure.paytmpayments.com/merchantpgpui/checkoutjs/merchants/gfWLtr04448499190835.js" onload="onScriptLoad();" crossorigin="anonymous"></script>
-
+      <script type="application/javascript" src="https://securestage.paytmpayments.com/merchantpgpui/checkoutjs/merchants/zALFvb06861381677388.js" onload="onScriptLoad();" crossorigin="anonymous"></script>
+     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 
     
