@@ -395,7 +395,10 @@ async function paymentRazorpay() {
     const response = await fetch(`${BACKEND_URL_OF_INDEX}/paytm/create-order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: totalPayPrice, formData: formData }),
+      body: JSON.stringify({
+        amount: 1, //totalPayPrice,
+        formData: formData,
+      }),
     });
 
     const data = await response.json();
