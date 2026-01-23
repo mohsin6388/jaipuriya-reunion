@@ -2084,10 +2084,11 @@ async function paymentRazorpay() {
   const payTm = document.getElementById("payTm");
 
   let upiLink = `tez://upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
+  let phonePayLink = `upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
 
   gpay.setAttribute("href", upiLink);
-  phonePay.setAttribute("href", `upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;);
-  payTm.setAttribute("href", `upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;);
+  phonePay.setAttribute("href", phonePayLink);
+  payTm.setAttribute("href", phonePayLink);
 
   //------- qr pop up end  here -----------------------
 
