@@ -2073,7 +2073,7 @@ async function paymentRazorpay() {
 
   document.getElementById("qrTotalAmt").textContent = totalPayPrice;
 
-  let qrCode = `tez://upi/pay?pa=8090500755@ptaxis&pn=MyStore&am=${totalPayPrice}&cu=INR`;
+  let qrCode = `upi/pay?pa=8090500755@ptaxis&pn=MyStore&am=${totalPayPrice}&cu=INR`;
 
   QRCode.toCanvas(document.getElementById("partyQR"), qrCode, {
     width: 200,
@@ -2086,8 +2086,8 @@ async function paymentRazorpay() {
   let upiLink = `tez://upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
 
   gpay.setAttribute("href", upiLink);
-  phonePay.setAttribute("href", upiLink);
-  payTm.setAttribute("href", upiLink);
+  phonePay.setAttribute("href", `upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;);
+  payTm.setAttribute("href", `upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;);
 
   //------- qr pop up end  here -----------------------
 
