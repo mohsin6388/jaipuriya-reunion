@@ -1766,7 +1766,7 @@ nav.site-nav { z-index: 100;}
         <div>
         <h3 class="thankBelowHead">
           Once your payment is completed, your event pass will be sent to your
-          registered email address within <strong>24 hours</strong>.
+          registered email address within <strong>72 hours</strong>.
         </h3>
       </div>
 
@@ -2073,7 +2073,7 @@ async function paymentRazorpay() {
 
   document.getElementById("qrTotalAmt").textContent = totalPayPrice;
 
-  let qrCode = `tez://upi/pay?pa=mohsin06388@okhdfcbank&pn=MyStore&am=${totalPayPrice}&cu=INR`;
+  let qrCode = `tez://upi/pay?pa=8090500755@ptaxis&pn=MyStore&am=${totalPayPrice}&cu=INR`;
 
   QRCode.toCanvas(document.getElementById("partyQR"), qrCode, {
     width: 200,
@@ -2083,7 +2083,7 @@ async function paymentRazorpay() {
   const phonePay = document.getElementById("phonePay");
   const payTm = document.getElementById("payTm");
 
-  let upiLink = `tez://upi/pay?pa=mohsin06388@okhdfcbank&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
+  let upiLink = `tez://upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
 
   gpay.setAttribute("href", upiLink);
   phonePay.setAttribute("href", upiLink);
