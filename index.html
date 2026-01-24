@@ -2073,7 +2073,7 @@ async function paymentRazorpay() {
 
   document.getElementById("qrTotalAmt").textContent = totalPayPrice;
 
-  let qrCode = `upi/pay?pa=8090500755@ptaxis&pn=MyStore&am=${totalPayPrice}&cu=INR`;
+  let qrCode = `upi/pay?pa=9336021421@pthdfc&pn=MyStore&am=${totalPayPrice}&cu=INR`;
 
   QRCode.toCanvas(document.getElementById("partyQR"), qrCode, {
     width: 200,
@@ -2083,9 +2083,9 @@ async function paymentRazorpay() {
   const phonePay = document.getElementById("phonePay");
   const payTm = document.getElementById("payTm");
 
-  let upiLink = `tez://upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
-  let phonePayLink = `phonepe://upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
-   let paytmLink = `paytmmp://upi/pay?pa=8090500755@ptaxis&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
+  let upiLink = `tez://upi/pay?pa=9336021421@pthdfc&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
+  let phonePayLink = `phonepe://upi/pay?pa=9336021421@pthdfc&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
+   let paytmLink = `paytmmp://upi/pay?pa=9336021421@pthdfc&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
 
   gpay.setAttribute("href", upiLink);
   phonePay.setAttribute("href", phonePayLink);
