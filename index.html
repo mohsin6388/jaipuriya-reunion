@@ -1102,9 +1102,9 @@ nav.site-nav { z-index: 100;}
       font-size: 16px;
       color: #555;
       font-weight: 400;
-      padding: 10px 30px;
+      padding: 0px 30px;
       line-height: 1.6;
-      margin-bottom: 24px;
+      margin-bottom: 14px;
       text-align: center;
     }
 
@@ -1793,7 +1793,7 @@ nav.site-nav { z-index: 100;}
 	  
        <span class="close-btn" id="qrClosePop" >&times;</span>
 
-      <div class="container" style="text-align: center;">
+      <div class="container" style="text-align: center; height: 90%;">
          <div
               class="qr-box"
               style="
@@ -2151,7 +2151,7 @@ async function paymentRazorpay() {
   let qrCode = `upi://pay?pa=9336021421@pthdfc&pn=MyStore&am=${totalPayPrice}&cu=INR`;
 
   QRCode.toCanvas(document.getElementById("partyQR"), qrCode, {
-    width: 200,
+    width: 100,
   });
 
   // const gpay = document.getElementById("gpay");
