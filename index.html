@@ -1805,7 +1805,11 @@ nav.site-nav { z-index: 100;}
               "
             >
               <canvas id="partyQR" style="text-align: center"></canvas>
-              <h4 style="color:#000"> UPI ID: <span id="upiId">9336021421@pthdfc</span> </h4>
+               <div style="display: flex; flex-direction: column;gap: 10px; padding: 10px 0; font-size: 19px;">
+                <span style="color:#000; font-weight: 600 "> UPI ID: <span id="upiId">9336021421@pthdfc</span> </span>
+                <span style="color: #000; font-weight: 600;">Account Name: Ram Kumar</span>
+              </div>
+              <!-- <h4 style="color:#000"> UPI ID: <span id="upiId">9336021421@pthdfc</span> </h4> -->
                   <button class="copy-btn" onclick="copyUPI()">
                     Copy UPI ID
                   </button>
@@ -1819,10 +1823,6 @@ nav.site-nav { z-index: 100;}
             </div>
 
             <div class="upi-steps">
-              <div style="display: flex; flex-direction: column;">
-                <span style="color: #000; font-weight: 500;">Bank Name: HDFC</span>
-                <span style="color: #000; font-weight: 500;">Account Name: Ram Kumar</span>
-              </div>
   <h3 style="color:#222; margin-bottom:8px;">Follow these steps to pay</h3>
   <ol style="padding-left:18px;">
     <li>Copy the UPI ID shown above</li>
