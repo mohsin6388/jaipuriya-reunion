@@ -2084,14 +2084,14 @@ async function paymentRazorpay() {
   const payTm = document.getElementById("payTm");
 
   const upiId = "9336021421@pthdfc";
-  const name = encodeURIComponent("UltimateJaipurians");
+  const upiName = encodeURIComponent("UltimateJaipurians");
   const amount = Number(totalPayPrice);
 
 
 
   let upiLink = `tez://upi/pay?pa=9336021421@pthdfc&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
-  let phonePayLink = `phonepe://pay?pa=${upiId}&pn=${name}&am=${amount}&cu=INR`;
-   let paytmLink = `paytmmp://pay?pa=${upiId}&pn=${name}&am=${amount}&cu=INR`;
+  let phonePayLink = `phonepe://pay?pa=${upiId}&pn=${upiName}&am=${amount}&cu=INR`;
+   let paytmLink = `paytmmp://pay?pa=${upiId}&pn=${upiName}&am=${amount}&cu=INR`;
 
   gpay.setAttribute("href", upiLink);
   phonePay.setAttribute("href", phonePayLink);
