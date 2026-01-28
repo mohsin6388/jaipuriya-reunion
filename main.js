@@ -322,7 +322,7 @@ async function paymentRazorpay() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        amount: totalPayPrice,
+        amount: 1, //totalPayPrice,
         formData: formData,
       }),
     });
