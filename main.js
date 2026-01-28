@@ -258,277 +258,118 @@ document.addEventListener("DOMContentLoaded", () => {
 //             Create Paytm Order here
 //----------------------------------------------
 
-// async function paymentRazorpay() {
-//   const name = document.getElementById("name").value.trim();
-//   const phone = Number(document.getElementById("number").value.trim());
-//   const email = document.getElementById("email").value.trim();
-//   const address = document.getElementById("address").value.trim();
-//   const city = document.getElementById("city").value.trim();
-//   const adhaar = document.getElementById("adhaar").value.trim();
+async function paymentRazorpay() {
+  const name = document.getElementById("name").value.trim();
+  const phone = Number(document.getElementById("number").value.trim());
+  const email = document.getElementById("email").value.trim();
+  const address = document.getElementById("address").value.trim();
+  const city = document.getElementById("city").value.trim();
+  const adhaar = document.getElementById("adhaar").value.trim();
 
-//   const noPeople = Number(document.getElementById("attend").textContent);
-//   // let donateAmt = Number(document.getElementById("donate").value.trim());
-//   const donationCheckboxes = document.querySelectorAll(".donation-check");
+  const noPeople = Number(document.getElementById("attend").textContent);
+  const donationCheckboxes = document.querySelectorAll(".donation-check");
 
-//   const someone = document.querySelector(".someone-check:checked")?.value || "";
-//   const support = document.querySelector(".support-check:checked")?.value || "";
+  const someone = document.querySelector(".someone-check:checked")?.value || "";
+  const support = document.querySelector(".support-check:checked")?.value || "";
 
-//   const donateAmt = getDonationTotal();
-//   function getDonationTotal() {
-//     let total = 0;
+  const donateAmt = getDonationTotal();
+  function getDonationTotal() {
+    let total = 0;
 
-//     donationCheckboxes.forEach((cb) => {
-//       if (cb.checked) {
-//         total += Number(cb.value);
-//       }
-//     });
+    donationCheckboxes.forEach((cb) => {
+      if (cb.checked) {
+        total += Number(cb.value);
+      }
+    });
 
-//     return total;
-//   }
+    return total;
+  }
 
-//   let passValue;
-//   if (noPeople == 1) {
-//     passValue = 5000;
-//   } else if (noPeople == 2) {
-//     passValue = 7500;
-//   } else {
-//     passValue = 0;
-//   }
+  let passValue;
+  if (noPeople == 1) {
+    passValue = 5000;
+  } else if (noPeople == 2) {
+    passValue = 7500;
+  } else {
+    passValue = 0;
+  }
 
-//   const passDonateValue = passValue + donateAmt;
-//   // + donateAmt;
-//   const payValue = (7 * passDonateValue) / 100;
-//   const totalPayPrice = passDonateValue + payValue;
+  const passDonateValue = passValue + donateAmt;
+  // + donateAmt;
+  const payValue = (7 * passDonateValue) / 100;
+  const totalPayPrice = passDonateValue + payValue;
 
-//   const formData = {
-//     name,
-//     phone,
-//     email,
-//     address,
-//     city,
-//     adhaar,
-//     noPeople,
-//     donateAmt,
-//     someone,
-//     support,
-//     passValue,
-//     totalPayPrice,
-//   };
+  const formData = {
+    name,
+    phone,
+    email,
+    address,
+    city,
+    adhaar,
+    noPeople,
+    donateAmt,
+    someone,
+    support,
+    passValue,
+    totalPayPrice,
+  };
 
-//   async function initiatePayment() {
-//     const response = await fetch(`${BACKEND_URL_OF_INDEX}/paytm/create-order`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({
-//         amount: totalPayPrice, //final production time will open
-//         formData: formData,
-//       }),
-//     });
+  // console.log(formData);
+  // console.log(totalPayPrice);
 
-//     const data = await response.json();
+  async function initiatePayment() {
+    const response = await fetch(`${BACKEND_URL_OF_INDEX}/paytm/create-order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount: totalPayPrice,
+        formData: formData,
+      }),
+    });
 
-//     //----- use paytm docs code ----------------//
+    const data = await response.json();
 
-//     async function onScriptLoad() {
-//       var config = {
-//         root: "",
-//         flow: "DEFAULT",
-//         data: {
-//           orderId: data.orderId /* update order id */,
-//           token: data.txnToken /* update token value */,
-//           tokenType: "TXN_TOKEN",
-//           amount: data.amount /* update amount */,
-//         },
-//         handler: {
-//           notifyMerchant: function (eventName, data) {
-//             console.log("notifyMerchant handler function called");
-//             console.log("eventName => ", eventName);
-//             console.log("data => ", data);
-//             if ("App closed from the header icon" == data.message) {
-//               document
-//                 .getElementById("downloadBtn")
-//                 .classList.remove("loading");
-//             }
-//           },
-//         },
-//       };
+    //----- use paytm docs code ----------------//
 
-//       if (window.Paytm && window.Paytm.CheckoutJS) {
-//         console.log("Paytm checkout window runing start");
+    async function onScriptLoad() {
+      var config = {
+        root: "",
+        flow: "DEFAULT",
+        data: {
+          orderId: data.orderId,
+          token: data.txnToken,
+          tokenType: "TXN_TOKEN",
+          amount: data.amount,
+        },
+        handler: {
+          notifyMerchant: function (eventName, data) {
+            console.log("notifyMerchant handler function called");
+            console.log("eventName => ", eventName);
+            console.log("data => ", data);
+            if ("App closed from the header icon" == data.message) {
+              document
+                .getElementById("downloadBtn")
+                .classList.remove("loading");
+            }
+          },
+        },
+      };
 
-//         await window.Paytm.CheckoutJS.init(config);
-//         window.Paytm.CheckoutJS.invoke();
-//       }
-//     }
+      if (window.Paytm && window.Paytm.CheckoutJS) {
+        console.log("Paytm checkout window runing start");
 
-//     onScriptLoad();
-//   }
+        await window.Paytm.CheckoutJS.init(config);
+        window.Paytm.CheckoutJS.invoke();
+      }
+    }
 
-//   initiatePayment();
-// }
+    onScriptLoad();
+  }
 
-//----------------------------------------
-//   Create Razorpay Order  api
-//----------------------------------------
+  initiatePayment();
+}
 
-// async function paymentRazorpay() {
-//   const name = document.getElementById("name").value.trim();
-//   const phone = Number(document.getElementById("number").value.trim());
-//   const email = document.getElementById("email").value.trim();
-//   const address = document.getElementById("address").value.trim();
-//   const city = document.getElementById("city").value.trim();
-//   const adhaar = document.getElementById("adhaar").value.trim();
-
-//   const noPeople = Number(document.getElementById("attend").textContent);
-//   const donationCheckboxes = document.querySelectorAll(".donation-check");
-
-//   const someone = document.querySelector(".someone-check:checked")?.value || "";
-//   const support = document.querySelector(".support-check:checked")?.value || "";
-
-//   const donateAmt = getDonationTotal();
-//   function getDonationTotal() {
-//     let total = 0;
-
-//     donationCheckboxes.forEach((cb) => {
-//       if (cb.checked) {
-//         total += Number(cb.value);
-//       }
-//     });
-
-//     return total;
-//   }
-
-//   let passValue;
-//   if (noPeople == 1) {
-//     passValue = 5000;
-//   } else if (noPeople == 2) {
-//     passValue = 7500;
-//   } else {
-//     passValue = 0;
-//   }
-
-//   const passDonateValue = passValue + donateAmt;
-//   const payValue = (7 * passDonateValue) / 100;
-//   const totalPayPrice = passDonateValue + payValue;
-
-//   const formData = {
-//     name,
-//     phone,
-//     email,
-//     address,
-//     city,
-//     adhaar,
-//     noPeople,
-//     donateAmt,
-//     someone,
-//     support,
-//     passValue,
-//     totalPayPrice,
-//   };
-
-//   async function initiatePayment() {
-//     try {
-//       // 1. Call Backend to Create Order
-//       const response = await fetch(`${BACKEND_URL_OF_INDEX}/create-order`, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           amount: totalPayPrice * 100,
-//           currency: "INR",
-//           receipt: `rcpt_${Date.now()}`,
-//         }),
-//       });
-//       const order = await response.json();
-
-//       if (!order.id) {
-//         throw new Error("Order creation failed");
-//       }
-
-//       // 2. Configure Razorpay Options
-//       const options = {
-//         key: KEY_ID,
-//         amount: order.amount,
-//         currency: order.currency,
-//         name: "Jaipuriya",
-//         description: "Reistration for Gala Re-union 21 Batch Event",
-//         image:
-//           "https://cdn.iconscout.com/icon/free/png-256/razorpay-1649771-1399875.png",
-//         order_id: order.id, // THE CRITICAL PART: Link frontend to backend order
-
-//         // Handler for Success
-//         handler: async function (response) {
-//           // 3. Verify Payment on Backend
-//           verifyPayment(response, formData);
-//         },
-//         prefill: {
-//           name: formData.name,
-//           contact: formData.phone,
-//           email: formData.email,
-//         },
-//         theme: {
-//           color: "#2563EB", // Blue-600 matches Tailwind
-//         },
-//       };
-
-//       // 4. Open Checkout
-//       const rzp1 = new Razorpay(options);
-//       button.classList.remove("loading");
-
-//       rzp1.on("payment.failed", function (response) {
-//         alert("Payment Failed: " + response.error.description);
-//         resetBtn();
-//       });
-
-//       rzp1.open();
-//       //resetBtn(); // Reset button immediately after modal opens
-//     } catch (error) {
-//       console.error(error);
-//       alert("Something went wrong. Check console.");
-//       resetBtn();
-//     }
-//   }
-
-//   initiatePayment();
-// }
-
-// //--------razorpay verify api --------------------
-
-// async function verifyPayment(paymentDetails, formData) {
-//   try {
-//     const response = await fetch(`${BACKEND_URL_OF_INDEX}/verify-payment`, {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ paymentDetails, formData }),
-//     });
-
-//     const result = await response.json();
-//     const { status, data } = result;
-
-//     if (status === "success") {
-//       console.log("Verification successfully...");
-
-//       const passData = new URLSearchParams({
-//         user_name: formData.name,
-//         user_number: formData.phone,
-//         city: formData.city,
-//         serialNo: formData.serialNo,
-//         how_many_people: formData.noPeople,
-//         user_email: formData.email,
-//         qr_code: data.qr_code,
-//         bookId: data.bookId,
-//       });
-
-//       window.location.href = `success.html?${passData.toString()}`;
-//     } else {
-//       console.log("Verification failed....");
-//     }
-//   } catch (error) {
-//     console.log("Something is error....");
-//   }
-// }
-
-//          Razorpay Transaction Completed
-//---------------------------------------------------------
+//======================================================================
 
 // async function testingCreateOrder() {
 //   const name = document.getElementById("name").value.trim();

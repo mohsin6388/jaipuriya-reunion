@@ -1997,9 +1997,8 @@ nav.site-nav { z-index: 100;}
 
      <script src="main.js" defer></script>
      <script src="carousel.js" defer></script>
-      <!-- <script type="application/javascript" src="https://secure.paytmpayments.com/merchantpgpui/checkoutjs/merchants/gfWLtr04448499190835.js" crossorigin="anonymous"></script> -->
-     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-      <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
+      <script type="application/javascript" src="https://secure.paytmpayments.com/merchantpgpui/checkoutjs/merchants/gfWLtr04448499190835.js" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
       <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
 
@@ -2007,11 +2006,11 @@ nav.site-nav { z-index: 100;}
     
     <script>
 
-      const BACKEND_URL_INDEX_PAGE = 'https://api.ultimatejaipurians.in'
-      //const BACKEND_URL_INDEX_PAGE = 'http://localhost:8000'
+       const BACKEND_URL_INDEX_PAGE = 'https://api.ultimatejaipurians.in'
+      //   const BACKEND_URL_INDEX_PAGE = 'http://localhost:8000'
 
 
-      //-------------------------------------------------
+//-------------------------------------------------
 //          Popup Open Final Pricing
 //------------------------------------------------
 
@@ -2085,143 +2084,6 @@ document.getElementById("closePop").addEventListener("click", () => {
   location.reload();
 });
 
-document.getElementById("qrClosePop").addEventListener("click", () => {
-  document.getElementById("qrPopup").style.display = "none";
-  location.reload();
-});
-
-
-
-
-//=================== Open popup final price ===========================
-
-async function paymentRazorpay() {
-   document.getElementById('qrPopup').style.display = 'flex'
-  const name = document.getElementById("name").value.trim();
-  const phone = Number(document.getElementById("number").value.trim());
-  const email = document.getElementById("email").value.trim();
-  const address = document.getElementById("address").value.trim();
-  const city = document.getElementById("city").value.trim();
-  const adhaar = document.getElementById("adhaar").value.trim();
-
-  const noPeople = Number(document.getElementById("attend").textContent);
-  const donationCheckboxes = document.querySelectorAll(".donation-check");
-
-  const someone = document.querySelector(".someone-check:checked")?.value || "";
-  const support = document.querySelector(".support-check:checked")?.value || "";
-
-  const donateAmt = getDonationTotal();
-  function getDonationTotal() {
-    let total = 0;
-
-    donationCheckboxes.forEach((cb) => {
-      if (cb.checked) {
-        total += Number(cb.value);
-      }
-    });
-
-    return total;
-  }
-
-  let passValue;
-  if (noPeople == 1) {
-    passValue = 5000;
-  } else if (noPeople == 2) {
-    passValue = 7500;
-  } else {
-    passValue = 0;
-  }
-
-  const passDonateValue = passValue + donateAmt;
-  const payValue = (7 * passDonateValue) / 100;
-  const totalPayPrice = passDonateValue + payValue;
-
-  const formData = {
-    name,
-    phone,
-    email,
-    address,
-    city,
-    adhaar,
-    noPeople,
-    donateAmt,
-    someone,
-    support,
-    passValue,
-    totalPayPrice,
-  };
-
-  //------ qr pop up open from here----------------
-
-  document.getElementById("qrTotalAmt").textContent = ` ₹ ${totalPayPrice}`;
-
-   let qrCode = `upi://pay?pa=9336021421@pthdfc&cu=INR`;
-  // let qrCode = '9336021421@pthdfc'
-
-  QRCode.toCanvas(document.getElementById("partyQR"), qrCode, {
-    width: 150,
-  });
-
-  // const gpay = document.getElementById("gpay");
-
-  // let upiLink = `upi://pay?pa=9336021421@pthdfc&pn=MyStore&am=${totalPayPrice}&cu=INR`
-  // let upiLink = 'https://www.upi.me/pay?pa=9336021421@pthdfc'
-
-  // gpay.setAttribute("href", upiLink);
-
-  // const phonePay = document.getElementById("phonePay");
-  // const payTm = document.getElementById("payTm");
-
-  // const upiId = "9336021421@pthdfc";
-  // const upiName = encodeURIComponent("UltimateJaipurians");
-  // const amount = Number(totalPayPrice);
-
-  // let upiLink = `tez://upi/pay?pa=9336021421@pthdfc&pn=UltimateJaipurians&am=${totalPayPrice}&cu=INR`;
-  // let phonePayLink = `phonepe://pay?pa=${upiId}&pn=${upiName}&am=${amount}&cu=INR`;
-  // let paytmLink = `paytmmp://pay?pa=${upiId}&pn=${upiName}&am=${amount}&cu=INR`;
-  //------- qr pop up end  here -----------------------
-
-
-  async function initiatePayment() {
-    try {
-      // 1. Call Backend to Create Order
-      const response = await fetch(
-        `${BACKEND_URL_OF_INDEX}/user/create-order`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            formData: formData,
-          }),
-        },
-      );
-
-      const order = await response.json();
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong. Check console.");
-      resetBtn();
-    }
-  }
-
-  initiatePayment();
-}
-      
-
-
-//=============== Copy UPI ID =================================
-function copyUPI() {
-      const upiText = document.getElementById("upiId").innerText;
-
-      navigator.clipboard.writeText(upiText).then(() => {
-        const msg = document.getElementById("copiedMsg");
-        msg.style.display = "block";
-
-        setTimeout(() => {
-          msg.style.display = "none";
-        }, 2000);
-      });
-    }
 
 
      //Upload Photo Open
