@@ -296,7 +296,7 @@ async function paymentRazorpay() {
 
   const passDonateValue = passValue + donateAmt;
   // + donateAmt;
-  const payValue = (7 * passDonateValue) / 100;
+  const payValue = (5 * passDonateValue) / 100;
   const totalPayPrice = passDonateValue + payValue;
 
   const formData = {

@@ -1758,7 +1758,7 @@ nav.site-nav { z-index: 100;}
                     <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                     </svg>
-                    GST + Other Charges(7%)
+                    GST + Other Charges(5%)
                 </div>
                 <div id="totalTax" class="item-amount">NA</div>
             </div>
@@ -1788,12 +1788,11 @@ nav.site-nav { z-index: 100;}
 
 <!-- QR , UPI POP UP -->
 
-<div class="pop-register" id="qrPopup" >
+<!-- <div class="pop-register" id="qrPopup" >
     <div class="popup-content">
 	  
        <span class="close-btn" id="qrClosePop" >&times;</span>
 
-      <!-- <div class="container" style="text-align: center; height: 90%;"> -->
         <div class="container" style="text-align:center; height:90%; max-width:100%; box-sizing:border-box; overflow-y:auto;">
          <div
               class="qr-box"
@@ -1809,7 +1808,6 @@ nav.site-nav { z-index: 100;}
                 <span style="color:#000; font-weight: 600 "> UPI ID: <span id="upiId">9336021421@pthdfc</span> </span>
                 <span style="color: #000; font-weight: 600;">Account Name: Ram Kumar</span>
               </div>
-              <!-- <h4 style="color:#000"> UPI ID: <span id="upiId">9336021421@pthdfc</span> </h4> -->
                   <button class="copy-btn" onclick="copyUPI()">
                     Copy UPI ID
                   </button>
@@ -1838,11 +1836,11 @@ nav.site-nav { z-index: 100;}
 
         <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
 
-          <!-- <button onclick="thankFunction()"  class="btn pay-button" style="background-color: black; margin: 0 auto;">
+           <button onclick="thankFunction()"  class="btn pay-button" style="background-color: black; margin: 0 auto;">
                     <a id="gpay" style="text-decoration: none; color: white;">
                       <span id="pay-btn" class="btn-text qrpay-btn">Pay Now</span>
                     </a>
-          </button> -->
+          </button>
         </div>
 
         <div>
@@ -1859,7 +1857,7 @@ nav.site-nav { z-index: 100;}
 
 
     </div>
-</div>
+</div> -->
 
 
 
@@ -2068,7 +2066,7 @@ openPop.addEventListener("click", function (e) {
     }
 
     const totalValue = passValue + getDonationTotal();
-    const taxValue = (7 * totalValue) / 100;
+    const taxValue = (5 * totalValue) / 100;
     const payPrice = totalValue + taxValue;
 
     document.getElementById("totalPass").innerText = `₹  ${passValue}`;
